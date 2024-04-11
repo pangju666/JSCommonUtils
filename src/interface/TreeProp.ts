@@ -1,7 +1,7 @@
 /**
  * 树形结构
  *
- * @internal
+ * @category 数据结构
  * @author 胖橘
  * @version 1.0
  * @since 1.0

@@ -15,6 +15,8 @@ import {
  * @since 1.0
  */
 export class ObjectUtils {
+  //TODO(idea): ObjectUtils 将一个对象去除部分属性，返回新对象（浅拷贝）
+
   /**
    * 将对象属性名称从驼峰格式转为下划线（_）格式
    *
