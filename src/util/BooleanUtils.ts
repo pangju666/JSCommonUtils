@@ -1,5 +1,5 @@
-import { ObjectUtils } from "./ObjectUtils";
-import { IllegalArgumentError } from "../error/runtimeError";
+import { ObjectUtils } from './ObjectUtils';
+import { IllegalArgumentError } from '../error/runtimeError';
 
 /**
  * 布尔工具类
@@ -14,32 +14,32 @@ export class BooleanUtils {
    * false 字符串
    * @category 只读常量
    */
-  public static readonly FALSE = "false";
+  public static readonly FALSE = 'false';
   /**
    * no 字符串
    * @category 只读常量
    */
-  public static readonly NO = "no";
+  public static readonly NO = 'no';
   /**
    * off 字符串
    * @category 只读常量
    */
-  public static readonly OFF = "off";
+  public static readonly OFF = 'off';
   /**
    * on 字符串
    * @category 只读常量
    */
-  public static readonly ON = "on";
+  public static readonly ON = 'on';
   /**
    * true 字符串
    * @category 只读常量
    */
-  public static readonly TRUE = "true";
+  public static readonly TRUE = 'true';
   /**
    * yes 字符串
    * @category 只读常量
    */
-  public static readonly YES = "yes";
+  public static readonly YES = 'yes';
 
   /**
    * <p>对一组布尔值执行“与”运算。</p>
@@ -59,7 +59,7 @@ export class BooleanUtils {
    * @throws {@link IllegalArgumentError} 如果参数数量为 0
    */
   public static and(...values: boolean[]): boolean {
-    ObjectUtils.requireNonEmpty(values, "参数不能为空");
+    ObjectUtils.requireNonEmpty(values, '参数不能为空');
     return values.every((value) => value);
   }
 
@@ -118,7 +118,7 @@ export class BooleanUtils {
    * @throws {@link IllegalArgumentError} 如果数组长度为 0。
    */
   public static or(...values: boolean[]): boolean {
-    ObjectUtils.requireNonEmpty(values, "参数不能为空");
+    ObjectUtils.requireNonEmpty(values, '参数不能为空');
     return values.some((value) => value);
   }
 
@@ -162,7 +162,7 @@ export class BooleanUtils {
   public static toBoolean(
     value: number,
     trueValue: number,
-    falseValue: number
+    falseValue: number,
   ): boolean;
   /**
    * {@label STRING_DEFAULT}
@@ -212,12 +212,12 @@ export class BooleanUtils {
   public static toBoolean(
     str: string,
     trueString: string,
-    falseString: string
+    falseString: string,
   ): boolean;
   static toBoolean(
     value: number | string,
     trueValue?: number | string,
-    falseValue?: number | string
+    falseValue?: number | string,
   ): boolean {
     if (ObjectUtils.isNull(value)) {
       if (ObjectUtils.isNull(trueValue)) {
@@ -226,13 +226,13 @@ export class BooleanUtils {
         return false;
       }
     } else if (ObjectUtils.allNull(trueValue, falseValue)) {
-      if (typeof value === "number") {
+      if (typeof value === 'number') {
         if (value === 0) {
           return false;
         } else if (value > 0) {
           return true;
         }
-      } else if (typeof value === "string") {
+      } else if (typeof value === 'string') {
         const result = this.fromString(value);
         if (ObjectUtils.isNotNull(result)) {
           return result;
@@ -245,7 +245,7 @@ export class BooleanUtils {
         return false;
       }
     }
-    throw new IllegalArgumentError("参数与任何一个指定值都不匹配");
+    throw new IllegalArgumentError('参数与任何一个指定值都不匹配');
   }
 
   /**
@@ -267,7 +267,7 @@ export class BooleanUtils {
     value: boolean,
     trueValue = 1,
     falseValue = 0,
-    nullValue = NaN
+    nullValue = NaN,
   ): number {
     if (ObjectUtils.isNull(value)) {
       return nullValue;
@@ -295,7 +295,7 @@ export class BooleanUtils {
     value: boolean,
     trueString: string,
     falseString: string,
-    nullString = ""
+    nullString = '',
   ): string {
     if (ObjectUtils.isNull(value)) {
       return nullString;
@@ -316,7 +316,7 @@ export class BooleanUtils {
    * @param nullString 如果 null 要返回的字符串，默认为 “”
    * @returns {} 'on', 'off', 参数为 null 或 undefined 则返回 nullString
    */
-  public static toStringOnOff(value: boolean, nullString = ""): string {
+  public static toStringOnOff(value: boolean, nullString = ''): string {
     return this.toString(value, this.ON, this.OFF, nullString);
   }
 
@@ -333,7 +333,7 @@ export class BooleanUtils {
    * @param nullString 如果 null 要返回的字符串，默认为 “”
    * @returns {} 'true', 'false', 参数为 null 或 undefined 则返回 nullString
    */
-  public static toStringTrueFalse(value: boolean, nullString = ""): string {
+  public static toStringTrueFalse(value: boolean, nullString = ''): string {
     return this.toString(value, this.TRUE, this.FALSE, nullString);
   }
 
@@ -349,7 +349,7 @@ export class BooleanUtils {
    * @param nullString 如果 null 要返回的字符串，默认为 “”
    * @returns {} 'yes', 'no', 参数为 null 或 undefined 则返回 nullString
    */
-  public static toStringYesNo(value: boolean, nullString = ""): string {
+  public static toStringYesNo(value: boolean, nullString = ''): string {
     return this.toString(value, this.YES, this.NO, nullString);
   }
 
@@ -364,20 +364,20 @@ export class BooleanUtils {
       case 1: {
         const ch0 = str.charAt(0);
         if (
-          ch0 === "y" ||
-          ch0 === "Y" ||
-          ch0 === "t" ||
-          ch0 === "T" ||
-          ch0 === "1"
+          ch0 === 'y' ||
+          ch0 === 'Y' ||
+          ch0 === 't' ||
+          ch0 === 'T' ||
+          ch0 === '1'
         ) {
           return true;
         }
         if (
-          ch0 === "n" ||
-          ch0 === "N" ||
-          ch0 === "f" ||
-          ch0 === "F" ||
-          ch0 === "0"
+          ch0 === 'n' ||
+          ch0 === 'N' ||
+          ch0 === 'f' ||
+          ch0 === 'F' ||
+          ch0 === '0'
         ) {
           return false;
         }
@@ -386,10 +386,10 @@ export class BooleanUtils {
       case 2: {
         const ch0 = str.charAt(0);
         const ch1 = str.charAt(1);
-        if ((ch0 === "o" || ch0 === "O") && (ch1 === "n" || ch1 === "N")) {
+        if ((ch0 === 'o' || ch0 === 'O') && (ch1 === 'n' || ch1 === 'N')) {
           return true;
         }
-        if ((ch0 === "n" || ch0 === "N") && (ch1 === "o" || ch1 === "O")) {
+        if ((ch0 === 'n' || ch0 === 'N') && (ch1 === 'o' || ch1 === 'O')) {
           return false;
         }
         break;
@@ -399,16 +399,16 @@ export class BooleanUtils {
         const ch1 = str.charAt(1);
         const ch2 = str.charAt(2);
         if (
-          (ch0 === "y" || ch0 === "Y") &&
-          (ch1 === "e" || ch1 === "E") &&
-          (ch2 === "s" || ch2 === "S")
+          (ch0 === 'y' || ch0 === 'Y') &&
+          (ch1 === 'e' || ch1 === 'E') &&
+          (ch2 === 's' || ch2 === 'S')
         ) {
           return true;
         }
         if (
-          (ch0 === "o" || ch0 === "O") &&
-          (ch1 === "f" || ch1 === "F") &&
-          (ch2 === "f" || ch2 === "F")
+          (ch0 === 'o' || ch0 === 'O') &&
+          (ch1 === 'f' || ch1 === 'F') &&
+          (ch2 === 'f' || ch2 === 'F')
         ) {
           return false;
         }
@@ -420,10 +420,10 @@ export class BooleanUtils {
         const ch2 = str.charAt(2);
         const ch3 = str.charAt(3);
         if (
-          (ch0 === "t" || ch0 === "T") &&
-          (ch1 === "r" || ch1 === "R") &&
-          (ch2 === "u" || ch2 === "U") &&
-          (ch3 === "e" || ch3 === "E")
+          (ch0 === 't' || ch0 === 'T') &&
+          (ch1 === 'r' || ch1 === 'R') &&
+          (ch2 === 'u' || ch2 === 'U') &&
+          (ch3 === 'e' || ch3 === 'E')
         ) {
           return true;
         }
@@ -436,11 +436,11 @@ export class BooleanUtils {
         const ch3 = str.charAt(3);
         const ch4 = str.charAt(4);
         if (
-          (ch0 === "f" || ch0 === "F") &&
-          (ch1 === "a" || ch1 === "A") &&
-          (ch2 === "l" || ch2 === "L") &&
-          (ch3 === "s" || ch3 === "S") &&
-          (ch4 === "e" || ch4 === "E")
+          (ch0 === 'f' || ch0 === 'F') &&
+          (ch1 === 'a' || ch1 === 'A') &&
+          (ch2 === 'l' || ch2 === 'L') &&
+          (ch3 === 's' || ch3 === 'S') &&
+          (ch4 === 'e' || ch4 === 'E')
         ) {
           return false;
         }

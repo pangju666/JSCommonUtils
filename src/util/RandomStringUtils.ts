@@ -1,8 +1,8 @@
-import { StringUtils } from "./StringUtils";
-import { IllegalArgumentError } from "../error/runtimeError";
-import { RandomUtils } from "./RandomUtils";
-import { ArrayUtils } from "./ArrayUtils";
-import { ObjectUtils } from "./ObjectUtils";
+import { StringUtils } from './StringUtils';
+import { IllegalArgumentError } from '../error/runtimeError';
+import { RandomUtils } from './RandomUtils';
+import { ArrayUtils } from './ArrayUtils';
+import { ObjectUtils } from './ObjectUtils';
 
 /**
  * 随机字符串工具类
@@ -15,59 +15,59 @@ export class RandomStringUtils {
   /**
    * 小写字母起始字符
    */
-  public static readonly MIN_LOWERCASE_CHAR = "a";
+  public static readonly MIN_LOWERCASE_CHAR = 'a';
   /**
    * 小写字母结束字符
    */
-  public static readonly MAX_LOWERCASE_CHAR = "z";
+  public static readonly MAX_LOWERCASE_CHAR = 'z';
   /**
    * 大写字母起始字符
    */
-  public static readonly MIN_UPPERCASE_CHAR = "A";
+  public static readonly MIN_UPPERCASE_CHAR = 'A';
   /**
    * 大写字母结束字符
    */
-  public static readonly MAX_UPPERCASE_CHAR = "Z";
+  public static readonly MAX_UPPERCASE_CHAR = 'Z';
   /**
    * 数字起始字符
    */
-  public static readonly MIN_NUMBER_CHAR = "0";
+  public static readonly MIN_NUMBER_CHAR = '0';
   /**
    * 数字结束字符
    */
-  public static readonly MAX_NUMBER_CHAR = "9";
+  public static readonly MAX_NUMBER_CHAR = '9';
   /**
    * ASCII 起始可打印字符
    */
-  public static readonly MIN_ASCII_PRINT_CHAR = " ";
+  public static readonly MIN_ASCII_PRINT_CHAR = ' ';
   /**
    * ASCII 结束可打印字符
    */
-  public static readonly MAX_ASCII_PRINT_CHAR = "~";
+  public static readonly MAX_ASCII_PRINT_CHAR = '~';
   /**
    * ASCII 起始字符
    */
-  public static readonly MIN_ASCII_CHAR = "\x00";
+  public static readonly MIN_ASCII_CHAR = '\x00';
   /**
    * ASCII 结束字符
    */
-  public static readonly MAX_ASCII_CHAR = "\x7F";
+  public static readonly MAX_ASCII_CHAR = '\x7F';
   /**
    * 中文 Unicode 起始字符
    */
-  public static readonly MIN_CHINESE_UNICODE_CHAR = "\u4e00";
+  public static readonly MIN_CHINESE_UNICODE_CHAR = '\u4e00';
   /**
    * 中文 Unicode 结束字符
    */
-  public static readonly MAX_CHINESE_UNICODE_CHAR = "\u9fa5";
+  public static readonly MAX_CHINESE_UNICODE_CHAR = '\u9fa5';
   /**
    * 最小 Unicode 起始字符
    */
-  public static readonly MIN_UNICODE_CHAR = "\x00";
+  public static readonly MIN_UNICODE_CHAR = '\x00';
   /**
    * Unicode 结束字符
    */
-  public static readonly MAX_UNICODE_CHAR = "\uDBFF";
+  public static readonly MAX_UNICODE_CHAR = '\uDBFF';
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {}
@@ -98,7 +98,7 @@ export class RandomStringUtils {
       this.MIN_NUMBER_CHAR,
       this.MAX_NUMBER_CHAR,
       minLength,
-      maxLength
+      maxLength,
     );
   }
 
@@ -148,7 +148,7 @@ export class RandomStringUtils {
    */
   public static randomLetterNumber(
     minLength: number,
-    maxLength: number
+    maxLength: number,
   ): string;
 
   static randomLetterNumber(minLength: number, maxLength?: number): string {
@@ -176,7 +176,7 @@ export class RandomStringUtils {
    */
   public static randomLowercaseLetter(
     minLength: number,
-    maxLength: number
+    maxLength: number,
   ): string;
 
   static randomLowercaseLetter(minLength: number, maxLength?: number): string {
@@ -184,7 +184,7 @@ export class RandomStringUtils {
       this.MIN_LOWERCASE_CHAR,
       this.MAX_LOWERCASE_CHAR,
       minLength,
-      maxLength
+      maxLength,
     );
   }
 
@@ -209,7 +209,7 @@ export class RandomStringUtils {
    */
   public static randomUppercaseLetter(
     minLength: number,
-    maxLength: number
+    maxLength: number,
   ): string;
 
   static randomUppercaseLetter(minLength: number, maxLength?: number): string {
@@ -217,7 +217,7 @@ export class RandomStringUtils {
       this.MIN_UPPERCASE_CHAR,
       this.MAX_UPPERCASE_CHAR,
       minLength,
-      maxLength
+      maxLength,
     );
   }
 
@@ -247,7 +247,7 @@ export class RandomStringUtils {
       this.MIN_CHINESE_UNICODE_CHAR,
       this.MAX_CHINESE_UNICODE_CHAR,
       minLength,
-      maxLength
+      maxLength,
     );
   }
 
@@ -277,7 +277,7 @@ export class RandomStringUtils {
       this.MIN_ASCII_CHAR,
       this.MAX_ASCII_CHAR,
       minLength,
-      maxLength
+      maxLength,
     );
   }
 
@@ -307,7 +307,7 @@ export class RandomStringUtils {
       this.MIN_ASCII_PRINT_CHAR,
       this.MAX_ASCII_PRINT_CHAR,
       minLength,
-      maxLength
+      maxLength,
     );
   }
 
@@ -337,7 +337,7 @@ export class RandomStringUtils {
       this.MIN_UNICODE_CHAR,
       this.MAX_UNICODE_CHAR,
       minLength,
-      maxLength
+      maxLength,
     );
   }
 
@@ -355,7 +355,7 @@ export class RandomStringUtils {
   public static randomString(
     startChar: string,
     endChar: string,
-    length: number
+    length: number,
   );
 
   /**
@@ -374,28 +374,28 @@ export class RandomStringUtils {
     startChar: string,
     endChar: string,
     minLength: number,
-    maxLength: number
+    maxLength: number,
   );
 
   static randomString(
     startChar: string,
     endChar: string,
     minLength: number,
-    maxLength?: number
+    maxLength?: number,
   ): string {
     if (StringUtils.isAnyEmpty(startChar, endChar)) {
-      throw new IllegalArgumentError("结束字符范围不可为空。");
+      throw new IllegalArgumentError('结束字符范围不可为空。');
     }
 
     if (endChar.length > 1 || startChar.length > 1) {
-      throw new IllegalArgumentError("起始字符或结束字符长度不可大于1");
+      throw new IllegalArgumentError('起始字符或结束字符长度不可大于1');
     }
 
     if (ObjectUtils.isNull(minLength)) {
-      throw new IllegalArgumentError("长度不可为空");
+      throw new IllegalArgumentError('长度不可为空');
     }
     if (maxLength < 1) {
-      throw new IllegalArgumentError("长度不可小于1");
+      throw new IllegalArgumentError('长度不可小于1');
     }
 
     const endCharCode = endChar.charCodeAt(0);
@@ -403,7 +403,7 @@ export class RandomStringUtils {
     const length = ObjectUtils.defaultIfCondition(
       RandomUtils.nextInt(minLength, maxLength),
       minLength,
-      ObjectUtils.isNotNull(maxLength)
+      ObjectUtils.isNotNull(maxLength),
     );
 
     if (startCharCode === endCharCode) {
@@ -414,7 +414,7 @@ export class RandomStringUtils {
     const charCodes = RandomUtils.nextIntArray(
       length,
       startCharCode,
-      endCharCode
+      endCharCode,
     );
     return String.fromCharCode(...charCodes);
   }
@@ -422,19 +422,19 @@ export class RandomStringUtils {
   private static randomLetterString(
     number: boolean,
     minLength: number,
-    maxLength?: number
+    maxLength?: number,
   ): string {
     if (ObjectUtils.isNull(minLength)) {
-      throw new IllegalArgumentError("长度不可为空");
+      throw new IllegalArgumentError('长度不可为空');
     }
     if (maxLength < 1) {
-      throw new IllegalArgumentError("长度不可小于1");
+      throw new IllegalArgumentError('长度不可小于1');
     }
 
     const length = ObjectUtils.defaultIfCondition(
       RandomUtils.nextInt(minLength, maxLength),
       minLength,
-      ObjectUtils.isNotNull(maxLength)
+      ObjectUtils.isNotNull(maxLength),
     );
 
     const chars = new Array(length);
@@ -448,18 +448,18 @@ export class RandomStringUtils {
         if (lowercase) {
           chars[i] = RandomUtils.nextInt(
             this.MIN_LOWERCASE_CHAR.charCodeAt(0),
-            this.MAX_LOWERCASE_CHAR.charCodeAt(0)
+            this.MAX_LOWERCASE_CHAR.charCodeAt(0),
           );
         } else {
           chars[i] = RandomUtils.nextInt(
             this.MIN_UPPERCASE_CHAR.charCodeAt(0),
-            this.MAX_UPPERCASE_CHAR.charCodeAt(0)
+            this.MAX_UPPERCASE_CHAR.charCodeAt(0),
           );
         }
       } else {
         chars[i] = RandomUtils.nextInt(
           this.MIN_NUMBER_CHAR.charCodeAt(0),
-          this.MAX_NUMBER_CHAR.charCodeAt(0)
+          this.MAX_NUMBER_CHAR.charCodeAt(0),
         );
       }
     }

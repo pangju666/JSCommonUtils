@@ -1,5 +1,5 @@
-import { ObjectUtils } from "./ObjectUtils";
-import { StringUtils } from "./StringUtils";
+import { ObjectUtils } from './ObjectUtils';
+import { StringUtils } from './StringUtils';
 
 /**
  * 正则表达式工具类
@@ -13,87 +13,87 @@ export class RegexUtils {
    * 大写字母
    * @category 正则表达式
    */
-  public static readonly UPPERCASE = "[A-Z]+";
+  public static readonly UPPERCASE = '[A-Z]+';
   /**
    * 小写字母
    * @category 正则表达式
    */
-  public static readonly LOWERCASE = "[a-z]+";
+  public static readonly LOWERCASE = '[a-z]+';
   /**
    * 字母
    * @category 正则表达式
    */
-  public static readonly LETTER = "[a-zA-Z]+";
+  public static readonly LETTER = '[a-zA-Z]+';
   /**
    * 中文
    * @category 正则表达式
    */
-  public static readonly CHINESE = "[\u4e00-\u9fa5]+";
+  public static readonly CHINESE = '[\u4e00-\u9fa5]+';
   /**
    * 数字
    * @category 正则表达式
    */
-  public static readonly NUMBER = "^-?(\\d+\\.)?\\d+$";
+  public static readonly NUMBER = '^-?(\\d+\\.)?\\d+$';
   /**
    * 正数
    * @category 正则表达式
    */
-  public static readonly POSITIVE_NUMBER = "^(\\d+\\.)?\\d+$";
+  public static readonly POSITIVE_NUMBER = '^(\\d+\\.)?\\d+$';
   /**
    * 负数
    * @category 正则表达式
    */
-  public static readonly NEGATIVE_NUMBER = "^-(\\d+\\.)?\\d+$";
+  public static readonly NEGATIVE_NUMBER = '^-(\\d+\\.)?\\d+$';
   /**
    * 十进制，不匹配空白
    * @category 正则表达式
    */
-  public static readonly DECIMAL = "\\d+";
+  public static readonly DECIMAL = '\\d+';
   /**
    * 十六进制，不匹配空白
    * @category 正则表达式
    */
-  public static readonly HEXADECIMAL = "(0[xX])?[a-fA-F0-9]+";
+  public static readonly HEXADECIMAL = '(0[xX])?[a-fA-F0-9]+';
   /**
    * 八进制，不匹配空白
    * @category 正则表达式
    */
-  public static readonly OCTAL = "(o|O)(0-7)+";
+  public static readonly OCTAL = '(o|O)(0-7)+';
   /**
    * 二进制，不匹配空白
    * @category 正则表达式
    */
-  public static readonly BINARY = "(0|1)+";
+  public static readonly BINARY = '(0|1)+';
   /**
    * 整数，不匹配空白
    * @category 正则表达式
    */
-  public static readonly INTEGER = "-?\\d+";
+  public static readonly INTEGER = '-?\\d+';
   /**
    * 正整数，不匹配空白
    * @category 正则表达式
    */
-  public static readonly POSITIVE_INTEGER = "\\d+";
+  public static readonly POSITIVE_INTEGER = '\\d+';
   /**
    * 负整数，不匹配空白
    * @category 正则表达式
    */
-  public static readonly NEGATIVE_INTEGER = "-\\d+";
+  public static readonly NEGATIVE_INTEGER = '-\\d+';
   /**
    * 浮点数，不匹配空白
    * @category 正则表达式
    */
-  public static readonly FLOAT = "-?\\d+\\.\\d+";
+  public static readonly FLOAT = '-?\\d+\\.\\d+';
   /**
    * 正浮点数，不匹配空白
    * @category 正则表达式
    */
-  public static readonly POSITIVE_FLOAT = "\\d+\\.\\d+";
+  public static readonly POSITIVE_FLOAT = '\\d+\\.\\d+';
   /**
    * 负浮点数，不匹配空白
    * @category 正则表达式
    */
-  public static readonly NEGATIVE_FLOAT = "-\\d+\\.\\d+";
+  public static readonly NEGATIVE_FLOAT = '-\\d+\\.\\d+';
 
   /**
    * 电话
@@ -314,7 +314,7 @@ export class RegexUtils {
   public static replaceAll(
     text: string,
     regex: string | RegExp,
-    replacement: string
+    replacement: string,
   ): string {
     if (ObjectUtils.anyNull(text, regex, replacement)) {
       return text;
@@ -354,7 +354,7 @@ export class RegexUtils {
   public static replaceFirst(
     text: string,
     regex: string | RegExp,
-    replacement: string
+    replacement: string,
   ): string {
     if (ObjectUtils.anyNull(text, regex, replacement)) {
       return text;
@@ -385,11 +385,11 @@ export class RegexUtils {
   public static replacePattern(
     text: string,
     regex: string | RegExp,
-    replacement: string
+    replacement: string,
   ): string {
     if (ObjectUtils.anyNull(text, regex, replacement)) {
       return text;
     }
-    return text.replaceAll(new RegExp(regex, "s"), replacement);
+    return text.replaceAll(new RegExp(regex, 's'), replacement);
   }
 }

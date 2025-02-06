@@ -1,10 +1,10 @@
-import { ObjectUtils } from "./ObjectUtils";
+import { ObjectUtils } from './ObjectUtils';
 import {
   IllegalArgumentError,
   IndexOutOfBoundsError,
-} from "../error/runtimeError";
-import { ArrayPredicate, Comparator, ToString } from "../type/FunctionAlias";
-import { RandomUtils } from "./RandomUtils";
+} from '../error/runtimeError';
+import { ArrayPredicate, Comparator, ToString } from '../type/FunctionAlias';
+import { RandomUtils } from './RandomUtils';
 
 /**
  * 数组工具类
@@ -29,7 +29,7 @@ export class ArrayUtils {
    */
   public static fill<T>(value: T, length: number): T[] {
     if (ObjectUtils.isNull(length) || length <= 0) {
-      throw new IllegalArgumentError("数组长度必须大于0");
+      throw new IllegalArgumentError('数组长度必须大于0');
     }
 
     const array = new Array(length);
@@ -63,7 +63,7 @@ export class ArrayUtils {
   public static add<T>(array: T[], element: T): T[] {
     if (ObjectUtils.isNull(array)) {
       if (ObjectUtils.isNull(element)) {
-        throw new IllegalArgumentError("参数不能同时为 null 或 undefined");
+        throw new IllegalArgumentError('参数不能同时为 null 或 undefined');
       }
       return [element];
     }
@@ -174,7 +174,7 @@ export class ArrayUtils {
    */
   public static contains<T>(
     array: T[],
-    search: ArrayPredicate<T> | T
+    search: ArrayPredicate<T> | T,
   ): boolean {
     return this.indexOf(array, search) !== -1;
   }
@@ -233,7 +233,7 @@ export class ArrayUtils {
   public static indexesOf<T>(
     array: T[],
     search: ArrayPredicate<T> | T,
-    startIndex = 0
+    startIndex = 0,
   ): number[] {
     const indexes = [];
 
@@ -241,7 +241,7 @@ export class ArrayUtils {
       return indexes;
     }
 
-    if (typeof search === "function") {
+    if (typeof search === 'function') {
       const predicate = search as ArrayPredicate<T>;
       for (let i = 0; i < array.length; i++) {
         if (i >= startIndex && predicate(array[i], i, array)) {
@@ -280,7 +280,7 @@ export class ArrayUtils {
   public static indexOf<T>(
     array: T[],
     search: ArrayPredicate<T> | T,
-    startIndex = 0
+    startIndex = 0,
   ): number {
     if (ObjectUtils.isNull(array)) {
       return this.INDEX_NOT_FOUND;
@@ -290,7 +290,7 @@ export class ArrayUtils {
       startIndex = 0;
     }
 
-    if (typeof search === "function") {
+    if (typeof search === 'function') {
       for (let i = 0; i < array.length; i++) {
         const predicate = search as ArrayPredicate<T>;
         if (i >= startIndex && predicate(array[i], i, array)) {
@@ -329,7 +329,7 @@ export class ArrayUtils {
     }
     if (index < 0 || index > array.length) {
       throw new IndexOutOfBoundsError(
-        "索引: " + index + ", 长度: " + array.length
+        '索引: ' + index + ', 长度: ' + array.length,
       );
     }
 
@@ -401,7 +401,7 @@ export class ArrayUtils {
   public static isSorted<T>(array: T[], comparator: Comparator<T>): boolean {
     if (ObjectUtils.isNull(comparator)) {
       throw new IllegalArgumentError(
-        "元素比较函数不应该为 null 或 undefined。"
+        '元素比较函数不应该为 null 或 undefined。',
       );
     }
 
@@ -436,7 +436,7 @@ export class ArrayUtils {
   public static lastIndexOf<T>(
     array: T[],
     search: ArrayPredicate<T> | T,
-    startIndex = Number.MAX_SAFE_INTEGER
+    startIndex = Number.MAX_SAFE_INTEGER,
   ): number {
     if (ObjectUtils.isNull(array)) {
       return this.INDEX_NOT_FOUND;
@@ -447,7 +447,7 @@ export class ArrayUtils {
       startIndex = array.length - 1;
     }
 
-    if (typeof search === "function") {
+    if (typeof search === 'function') {
       const predicate = search as ArrayPredicate<T>;
       for (let i = startIndex; i >= 0; i--) {
         if (predicate(array[i], i, array)) {
@@ -495,7 +495,7 @@ export class ArrayUtils {
   public static remove<T>(array: T[], index: number): T[] {
     const length = this.getLength(array);
     if (index < 0 || index >= length) {
-      throw new IndexOutOfBoundsError("索引: " + index + ", 长度: " + length);
+      throw new IndexOutOfBoundsError('索引: ' + index + ', 长度: ' + length);
     }
 
     const result = array.slice(index + 1);
@@ -536,7 +536,7 @@ export class ArrayUtils {
         const index = clonedIndices[i];
         if (index < 0 || index >= length) {
           throw new IndexOutOfBoundsError(
-            "索引: " + index + ", 长度: " + length
+            '索引: ' + index + ', 长度: ' + length,
           );
         }
         if (index >= prevIndex) {
@@ -584,7 +584,7 @@ export class ArrayUtils {
    */
   public static removeAllOccurrences<T>(
     array: T[],
-    search: ArrayPredicate<T> | T
+    search: ArrayPredicate<T> | T,
   ): T[] {
     return this.removeAll(array, ...this.indexesOf(array, search));
   }
@@ -612,7 +612,7 @@ export class ArrayUtils {
    */
   public static removeElement<T>(
     array: T[],
-    search: ArrayPredicate<T> | T
+    search: ArrayPredicate<T> | T,
   ): T[] {
     const index = this.indexOf(array, search);
     if (index === this.INDEX_NOT_FOUND) {
@@ -683,7 +683,7 @@ export class ArrayUtils {
   public static reverse<T>(
     array: T[],
     startIndexInclusive = 0,
-    endIndexExclusive = array.length
+    endIndexExclusive = array.length,
   ): void {
     if (ObjectUtils.isNull(array)) {
       return;
@@ -723,13 +723,13 @@ export class ArrayUtils {
     array: T[],
     startIndexInclusive: number,
     endIndexExclusive: number,
-    offset: number
+    offset: number,
   ): void;
   static shift<T>(
     array: T[],
     startIndexInclusive: number,
     endIndexExclusive?: number,
-    offset?: number
+    offset?: number,
   ): void {
     if (endIndexExclusive === undefined && offset === undefined) {
       return this.shift(array, 0, array.length, offset);
@@ -767,7 +767,7 @@ export class ArrayUtils {
           array,
           startIndexInclusive,
           startIndexInclusive + n - n_offset,
-          n_offset
+          n_offset,
         );
         n = offset;
         offset -= n_offset;
@@ -776,7 +776,7 @@ export class ArrayUtils {
           array,
           startIndexInclusive,
           startIndexInclusive + n_offset,
-          offset
+          offset,
         );
         startIndexInclusive += offset;
         n = n_offset;
@@ -785,7 +785,7 @@ export class ArrayUtils {
           array,
           startIndexInclusive,
           startIndexInclusive + n_offset,
-          offset
+          offset,
         );
         break;
       }
@@ -820,7 +820,7 @@ export class ArrayUtils {
   public static subarray<T>(
     array: T[],
     startIndexInclusive: number,
-    endIndexExclusive: number
+    endIndexExclusive: number,
   ): T[] {
     if (ObjectUtils.isNull(array)) {
       return null;
@@ -866,7 +866,7 @@ export class ArrayUtils {
     array: T[],
     offset1: number,
     offset2: number,
-    length = 1
+    length = 1,
   ): void {
     if (
       this.isEmpty(array) ||
@@ -885,7 +885,7 @@ export class ArrayUtils {
 
     length = Math.min(
       Math.min(length, array.length - offset1),
-      array.length - offset2
+      array.length - offset2,
     );
     for (let i = 0; i < length; i++, offset1++, offset2++) {
       const tmp = array[offset1];
@@ -907,7 +907,7 @@ export class ArrayUtils {
   public static toStringArray<T>(
     array: T[],
     valueForNullElements: string,
-    elementToStringFunc?: ToString<T>
+    elementToStringFunc?: ToString<T>,
   ): string[] {
     if (ObjectUtils.isNull(array)) {
       return null;
@@ -920,12 +920,12 @@ export class ArrayUtils {
       if (ObjectUtils.isNull(elementToStringFunc)) {
         result[i] = ObjectUtils.defaultIfNull(
           array[i].toString(),
-          valueForNullElements
+          valueForNullElements,
         );
       } else {
         result[i] = ObjectUtils.defaultIfNull(
           elementToStringFunc(array[i]),
-          valueForNullElements
+          valueForNullElements,
         );
       }
     }

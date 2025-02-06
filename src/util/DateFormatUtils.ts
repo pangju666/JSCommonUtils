@@ -1,6 +1,7 @@
-import { format } from "date-fns";
-import { ObjectUtils } from "./ObjectUtils";
-import { StringUtils } from "./StringUtils";
+import { format } from 'date-fns';
+import { ObjectUtils } from './ObjectUtils';
+import { StringUtils } from './StringUtils';
+import { FormatOptions } from 'date-fns/format';
 
 /**
  * 日期格式化工具类
@@ -15,27 +16,27 @@ export class DateFormatUtils {
    * 日期 + 时间
    * @category 日期格式
    */
-  public static readonly DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+  public static readonly DATE_TIME_FORMAT = 'yyyy-MM-dd HH:mm:ss';
   /**
    * 日期 + 时间 + 时区
    * @category 日期格式
    */
-  public static readonly DATE_TIME_TIME_ZONE_FORMAT = "yyyy-MM-dd HH:mm:ssZZ";
+  public static readonly DATE_TIME_TIME_ZONE_FORMAT = 'yyyy-MM-dd HH:mm:ssZZ';
   /**
    * 日期
    * @category 日期格式
    */
-  public static readonly DATE_FORMAT = "yyyy-MM-dd";
+  public static readonly DATE_FORMAT = 'yyyy-MM-dd';
   /**
    * 日期 + 时区
    * @category 日期格式
    */
-  public static readonly DATE_TIME_ZONE_FORMAT = "yyyy-MM-ddZZ";
+  public static readonly DATE_TIME_ZONE_FORMAT = 'yyyy-MM-ddZZ';
   /**
    * 时间
    * @category 日期格式
    */
-  public static readonly TIME_FORMAT = "HH:mm:ss";
+  public static readonly TIME_FORMAT = 'HH:mm:ss';
 
   /**
    * <p>将{@link Date 日期}或{@link number 时间戳}格式化为特定模式。</p>
@@ -78,19 +79,13 @@ export class DateFormatUtils {
   public static format(
     date: number | Date,
     formatStr = DateFormatUtils.DATE_FORMAT,
-    options?: {
-      locale?: Locale;
-      weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
-      firstWeekContainsDate?: number;
-      useAdditionalWeekYearTokens?: boolean;
-      useAdditionalDayOfYearTokens?: boolean;
-    }
+    options?: FormatOptions,
   ): string {
     if (
       ObjectUtils.anyNull(date, formatStr) ||
       StringUtils.isEmpty(formatStr)
     ) {
-      return "";
+      return '';
     }
     return format(date, formatStr, options);
   }

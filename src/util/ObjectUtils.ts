@@ -1,10 +1,10 @@
-import { IllegalArgumentError, NullError } from "../error/runtimeError";
+import { IllegalArgumentError, NullError } from '../error/runtimeError';
 import {
   Comparator,
   Converter,
   Equalizer,
   Predicate,
-} from "../type/FunctionAlias";
+} from '../type/FunctionAlias';
 
 /**
  * 对象工具类
@@ -63,7 +63,7 @@ export class ObjectUtils {
   public static propertyNameToUnderLine(obj: unknown): unknown {
     return this.convertPropertyNames(obj, (propertyName) => {
       if (this.isNull(propertyName) || propertyName.length === 0) {
-        return "";
+        return '';
       }
 
       const newStr = [];
@@ -77,10 +77,10 @@ export class ObjectUtils {
       indexArr.forEach((value, index) => {
         newStr.push(
           propertyName.charAt(value).toLowerCase() +
-            propertyName.substring(value + 1, indexArr[index + 1])
+            propertyName.substring(value + 1, indexArr[index + 1]),
         );
       });
-      return newStr.join("_");
+      return newStr.join('_');
     });
   }
 
@@ -132,13 +132,13 @@ export class ObjectUtils {
   public static propertyNameToCamlCase(obj: unknown): unknown {
     return this.convertPropertyNames(obj, (propertyName) => {
       if (this.isNull(propertyName) || propertyName.length === 0) {
-        return "";
+        return '';
       }
       const strArr = propertyName.split(/_|-/);
       for (let i = 1; i < strArr.length; i++) {
         strArr[i] = strArr[i].charAt(0).toUpperCase() + strArr[i].substring(1);
       }
-      return strArr.join("");
+      return strArr.join('');
     });
   }
 
@@ -151,7 +151,7 @@ export class ObjectUtils {
    */
   public static convertPropertyNames(
     obj: unknown,
-    converter: Converter<string>
+    converter: Converter<string>,
   ): unknown {
     if (this.isNull(obj)) {
       return null;
@@ -222,17 +222,17 @@ export class ObjectUtils {
   public static getProp(
     value: unknown,
     key: string,
-    defaultValue = null
+    defaultValue = null,
   ): unknown {
-    if (this.isNotNull(key) && typeof key !== "string") {
-      throw new TypeError("key 必须为字符串类型");
+    if (this.isNotNull(key) && typeof key !== 'string') {
+      throw new TypeError('key 必须为字符串类型');
     }
 
     if (this.anyNull(value, key) || key.length === 0) {
       return defaultValue;
     }
 
-    const props = key.replace(/\[/g, ".").replace(/]/g, "").split(".");
+    const props = key.replace(/\[/g, '.').replace(/]/g, '').split('.');
     if (props.length <= 1) {
       return this.defaultIfNull(value[props[0]], defaultValue);
     }
@@ -482,7 +482,7 @@ export class ObjectUtils {
     }
     return Object.create(
       Object.getPrototypeOf(source),
-      Object.getOwnPropertyDescriptors(source)
+      Object.getOwnPropertyDescriptors(source),
     );
   }
 
@@ -511,7 +511,7 @@ export class ObjectUtils {
     c1: T,
     c2: T,
     compareTo: Comparator<T>,
-    nullGreater = false
+    nullGreater = false,
   ): number {
     if (this.isNull(c1)) {
       if (this.isNull(c2)) {
@@ -566,9 +566,9 @@ export class ObjectUtils {
   public static defaultIfCondition<T>(
     value: T,
     defaultValue: T,
-    condition: boolean | Predicate<T>
+    condition: boolean | Predicate<T>,
   ): T {
-    if (typeof condition === "boolean") {
+    if (typeof condition === 'boolean') {
       return condition ? value : defaultValue;
     }
     return condition(value) ? value : defaultValue;
@@ -631,14 +631,14 @@ export class ObjectUtils {
     if (this.isNull(value)) {
       return true;
     }
-    if (typeof value === "string" || Array.isArray(value)) {
+    if (typeof value === 'string' || Array.isArray(value)) {
       return value.length === 0;
     }
     if (value instanceof Map || value instanceof Set) {
       return value.size === 0;
     }
-    if (typeof value === "object") {
-      return JSON.stringify(value) === "{}";
+    if (typeof value === 'object') {
+      return JSON.stringify(value) === '{}';
     }
     return false;
   }
@@ -789,12 +789,12 @@ export class ObjectUtils {
   public static equal<T>(
     value1: T,
     value2: T,
-    equalizer?: Equalizer<T>
+    equalizer?: Equalizer<T>,
   ): boolean {
     if (this.isNull(value1)) {
       return this.isNull(value2);
     }
-    if (this.isNull(equalizer) || typeof equalizer !== "function") {
+    if (this.isNull(equalizer) || typeof equalizer !== 'function') {
       return Object.is(value1, value2);
     }
     return equalizer(value1, value2);
@@ -814,7 +814,7 @@ export class ObjectUtils {
   public static notEqual<T>(
     value1: T,
     value2: T,
-    equalizer?: Equalizer<T>
+    equalizer?: Equalizer<T>,
   ): boolean {
     return !this.equal(value1, value2, equalizer);
   }
@@ -892,11 +892,11 @@ export class ObjectUtils {
       return true;
     }
     return (
-      typeof value === "string" ||
-      typeof value === "number" ||
-      typeof value === "boolean" ||
-      typeof value === "symbol" ||
-      typeof value === "bigint"
+      typeof value === 'string' ||
+      typeof value === 'number' ||
+      typeof value === 'boolean' ||
+      typeof value === 'symbol' ||
+      typeof value === 'bigint'
     );
   }
 
@@ -928,25 +928,25 @@ export class ObjectUtils {
       return false;
     }
     return types.some((type) => {
-      if (type === String && typeof value === "string") {
+      if (type === String && typeof value === 'string') {
         return true;
       }
-      if (type === Number && typeof value === "number") {
+      if (type === Number && typeof value === 'number') {
         return true;
       }
-      if (type === BigInt && typeof value === "bigint") {
+      if (type === BigInt && typeof value === 'bigint') {
         return true;
       }
-      if (type === Boolean && typeof value === "boolean") {
+      if (type === Boolean && typeof value === 'boolean') {
         return true;
       }
-      if (type === Symbol && typeof value === "symbol") {
+      if (type === Symbol && typeof value === 'symbol') {
         return true;
       }
-      if (type === Object && typeof value === "object") {
+      if (type === Object && typeof value === 'object') {
         return true;
       }
-      if (type === Function && typeof value === "function") {
+      if (type === Function && typeof value === 'function') {
         return true;
       }
       if (type === Array && Array.isArray(value)) {
@@ -961,13 +961,13 @@ export class ObjectUtils {
     if (
       this.isNull(value) ||
       value instanceof Error ||
-      typeof value !== "object"
+      typeof value !== 'object'
     ) {
       return value;
     }
     // dom节点，无法深度拷贝，直接返回原值
     if (
-      typeof window !== "undefined" &&
+      typeof window !== 'undefined' &&
       (value instanceof Node || value instanceof HTMLCollection)
     ) {
       return value;
@@ -986,12 +986,12 @@ export class ObjectUtils {
       if (
         this.isNull(currentValue) ||
         value instanceof Error ||
-        typeof currentValue !== "object"
+        typeof currentValue !== 'object'
       ) {
         newValue[key] = currentValue;
       } else if (Array.isArray(currentValue)) {
         newValue[key] = currentValue.map((item) =>
-          this.deepCloneImpl(item, hash)
+          this.deepCloneImpl(item, hash),
         );
       } else if (currentValue instanceof Set) {
         const newSet = new Set();

@@ -1,8 +1,8 @@
-import { describe, expect, test } from "@jest/globals";
-import { TreeUtils } from "../src";
+//import { describe, expect, test } from "@jest/globals";
+import { TreeUtils } from '../src';
 
-describe("TreeUtilsTest", () => {
-  test("toTreeTest", () => {
+describe('TreeUtilsTest', () => {
+  test('toTreeTest', () => {
     const nodes = [
       {
         id: 1,
@@ -45,7 +45,7 @@ describe("TreeUtilsTest", () => {
     ]);
   });
 
-  test("getNodesTest", () => {
+  test('getNodesTest', () => {
     const tree = [
       {
         id: 1,
@@ -88,7 +88,7 @@ describe("TreeUtilsTest", () => {
     ]);
   });
 
-  test("forEachTest", () => {
+  test('forEachTest', () => {
     const tree = [
       {
         id: 1,
@@ -111,7 +111,7 @@ describe("TreeUtilsTest", () => {
         ],
       },
     ];
-    TreeUtils.forEach(tree, "children", (node, parentNode) => {
+    TreeUtils.forEach(tree, 'children', (node, parentNode) => {
       console.log(node.id, parentNode?.id);
     });
   });

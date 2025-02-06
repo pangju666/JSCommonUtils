@@ -1,5 +1,5 @@
-import { IllegalArgumentError } from "../error/runtimeError";
-import { ObjectUtils } from "./ObjectUtils";
+import { IllegalArgumentError } from '../error/runtimeError';
+import { ObjectUtils } from './ObjectUtils';
 
 /**
  * 随机数工具类
@@ -93,12 +93,12 @@ export class RandomUtils {
   public static nextIntArray(
     length: number,
     startInclusive: number,
-    endExclusive: number
+    endExclusive: number,
   ): number[];
   static nextIntArray(
     length: number,
     startInclusive?: number,
-    endExclusive?: number
+    endExclusive?: number,
   ): number[] {
     let result;
     if (ObjectUtils.isNull(endExclusive)) {
@@ -144,12 +144,12 @@ export class RandomUtils {
   public static nextNoRepeatIntArray(
     length: number,
     startInclusive: number,
-    endExclusive: number
+    endExclusive: number,
   ): number[];
   static nextNoRepeatIntArray(
     length: number,
     startInclusive?: number,
-    endExclusive?: number
+    endExclusive?: number,
   ): number[] {
     let result;
     if (ObjectUtils.isNull(endExclusive)) {
@@ -228,12 +228,12 @@ export class RandomUtils {
   public static nextFloatArray(
     length: number,
     startInclusive: number,
-    endExclusive: number
+    endExclusive: number,
   ): number[];
   static nextFloatArray(
     length: number,
     startInclusive?: number,
-    endExclusive?: number
+    endExclusive?: number,
   ): number[] {
     if (ObjectUtils.isNull(endExclusive)) {
       if (ObjectUtils.isNull(startInclusive)) {
@@ -246,10 +246,10 @@ export class RandomUtils {
 
   private static random(min: number, max: number): number {
     if (max < min) {
-      throw new IllegalArgumentError("起始值必须小于或等于结束值。");
+      throw new IllegalArgumentError('起始值必须小于或等于结束值。');
     }
     if (min < 0) {
-      throw new IllegalArgumentError("两个范围值都必须为非负数。");
+      throw new IllegalArgumentError('两个范围值都必须为非负数。');
     }
 
     if (min === max) {
@@ -263,20 +263,20 @@ export class RandomUtils {
     min: number,
     max: number,
     length: number,
-    repeat: boolean
+    repeat: boolean,
   ): number[] {
     if (ObjectUtils.isNull(length)) {
-      throw new IllegalArgumentError("长度不可为 null 或 undefined。");
+      throw new IllegalArgumentError('长度不可为 null 或 undefined。');
     }
     if (length < 1) {
-      throw new IllegalArgumentError("长度不可小于1");
+      throw new IllegalArgumentError('长度不可小于1');
     }
 
     if (max < min) {
-      throw new IllegalArgumentError("起始值必须小于或等于结束值。");
+      throw new IllegalArgumentError('起始值必须小于或等于结束值。');
     }
     if (min < 0) {
-      throw new IllegalArgumentError("两个范围值都必须为非负数。");
+      throw new IllegalArgumentError('两个范围值都必须为非负数。');
     }
 
     if (min === max) {

@@ -3,16 +3,16 @@ docs
 src
 test
 
-.babelrc
+babel.config.js
 .eslintignore
-.eslintrc
+.eslintrc.js
 .gitignore
 .lintstagedrc
 .npmignore
 .prettierignore
 
 jest.config.js
-rollup.config.js
+rollup.config.mjs
 
 tsconfig.json
 typedoc.json

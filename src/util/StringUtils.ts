@@ -1,11 +1,11 @@
-import { ObjectUtils } from "./ObjectUtils";
-import { BooleanUtils } from "./BooleanUtils";
-import { ArrayUtils } from "./ArrayUtils";
+import { ObjectUtils } from './ObjectUtils';
+import { BooleanUtils } from './BooleanUtils';
+import { ArrayUtils } from './ArrayUtils';
 import {
   IllegalArgumentError,
   IndexOutOfBoundsError,
-} from "../error/runtimeError";
-import { Supplier } from "../type/FunctionAlias";
+} from '../error/runtimeError';
+import { Supplier } from '../type/FunctionAlias';
 
 /**
  * 字符串工具类
@@ -18,11 +18,11 @@ export class StringUtils {
   /**
    * 空字符串 ""。
    */
-  public static readonly EMPTY = "";
+  public static readonly EMPTY = '';
   /**
    * 空白字符的字符串。
    */
-  public static readonly SPACE = " ";
+  public static readonly SPACE = ' ';
   /**
    * 表示失败的索引搜索。
    */
@@ -34,11 +34,11 @@ export class StringUtils {
   /**
    * 换行符 LF ('\n', Unicode 000a)。
    */
-  public static readonly LF = "\n";
+  public static readonly LF = '\n';
   /**
    * 回车字符 CR ('\r', Unicode 000d)。
    */
-  public static readonly CR = "\r";
+  public static readonly CR = '\r';
   /**
    * <a href="http:www.unicode.orgglossarycode_point"> Unicode 代码点</a> 的最小值，常量 U+0000。
    */
@@ -112,7 +112,7 @@ export class StringUtils {
   public static abbreviate(
     str: string,
     offset: number,
-    maxWidth: number
+    maxWidth: number,
   ): string;
   /**
    * <p>使用另一个给定的字符串作为替换标记来缩写字符串。
@@ -148,7 +148,7 @@ export class StringUtils {
   public static abbreviate(
     str: string,
     abbrevMarker: string,
-    maxWidth: number
+    maxWidth: number,
   ): string;
   /**
    * <p>使用给定的替换标记缩写字符串。
@@ -187,19 +187,19 @@ export class StringUtils {
     str: string,
     abbrevMarker: string,
     offset: number,
-    maxWidth: number
+    maxWidth: number,
   ): string;
   static abbreviate(
     str: string,
     abbrevMarker: string | number,
     offset?: number,
-    maxWidth?: number
+    maxWidth?: number,
   ): string {
     if (maxWidth === undefined) {
       if (offset === undefined) {
         return this.abbreviate(str, abbrevMarker as number);
       }
-      if (typeof abbrevMarker === "string") {
+      if (typeof abbrevMarker === 'string') {
         return this.abbreviate(str, abbrevMarker, offset);
       }
       return this.abbreviate(str, abbrevMarker, offset);
@@ -215,7 +215,7 @@ export class StringUtils {
     const minAbbrevWidthOffset = abbrevMarkerLength + abbrevMarkerLength + 1;
 
     if (maxWidth < minAbbrevWidth) {
-      throw new IllegalArgumentError("最小缩写宽度为 " + minAbbrevWidth);
+      throw new IllegalArgumentError('最小缩写宽度为 ' + minAbbrevWidth);
     }
     const strLen = str.length;
     if (strLen <= maxWidth) {
@@ -232,7 +232,7 @@ export class StringUtils {
     }
     if (maxWidth < minAbbrevWidthOffset) {
       throw new IllegalArgumentError(
-        "带偏移的最小缩写宽度为 " + minAbbrevWidthOffset
+        '带偏移的最小缩写宽度为 ' + minAbbrevWidthOffset,
       );
     }
     if (offset + maxWidth - abbrevMarkerLength < strLen) {
@@ -241,7 +241,7 @@ export class StringUtils {
         this.abbreviate(
           str.substring(offset),
           abbrevMarker as string,
-          maxWidth - abbrevMarkerLength
+          maxWidth - abbrevMarkerLength,
         )
       );
     }
@@ -279,7 +279,7 @@ export class StringUtils {
   public static abbreviateMiddle(
     str: string,
     middle: string,
-    length: number
+    length: number,
   ): string {
     if (
       this.isAnyEmpty(str, middle) ||
@@ -593,7 +593,7 @@ export class StringUtils {
   public static compareToIgnoreCase(
     str1: string,
     str2: string,
-    nullIsLess = true
+    nullIsLess = true,
   ): number {
     return this.compareStr(str1, str2, nullIsLess, true);
   }
@@ -868,7 +868,7 @@ export class StringUtils {
    * @return {} 传入的字符串，或默认字符
    * @see defaultString
    */
-  public static defaultIfBlank(str: string, defaultStr = ""): string {
+  public static defaultIfBlank(str: string, defaultStr = ''): string {
     return this.isBlank(str) ? defaultStr : str;
   }
 
@@ -888,7 +888,7 @@ export class StringUtils {
    * @return {} 传入的字符串，或默认字符
    * @see defaultString
    */
-  public static defaultIfEmpty(str: string, defaultStr = ""): string {
+  public static defaultIfEmpty(str: string, defaultStr = ''): string {
     return this.isEmpty(str) ? defaultStr : str;
   }
 
@@ -905,7 +905,7 @@ export class StringUtils {
    * @param defaultStr 要返回的默认字符串，如果输入为 null 或 undefined，则可能为 null
    * @return 传入的字符串，如果是 null 或 undefined 则为默认值
    */
-  public static defaultString(str: string, defaultStr = ""): string {
+  public static defaultString(str: string, defaultStr = ''): string {
     return ObjectUtils.defaultIfNull(str, defaultStr);
   }
 
@@ -941,7 +941,7 @@ export class StringUtils {
     if (count === 0) {
       return this.EMPTY;
     }
-    return chs.slice(0, count).join("");
+    return chs.slice(0, count).join('');
   }
 
   /**
@@ -1005,7 +1005,7 @@ export class StringUtils {
   public static endsWith(
     str: string,
     suffix: string,
-    ignoreCase = false
+    ignoreCase = false,
   ): boolean {
     if (ObjectUtils.anyNull(str, suffix)) {
       return str === suffix;
@@ -1096,7 +1096,7 @@ export class StringUtils {
   public static equals(
     str1: string,
     str2: string,
-    ignoreCase = false
+    ignoreCase = false,
   ): boolean {
     if (ObjectUtils.allNull(str1, str2)) {
       return true;
@@ -1321,7 +1321,7 @@ export class StringUtils {
    */
   public static getIfBlank(
     str: string,
-    defaultSupplier: Supplier<string>
+    defaultSupplier: Supplier<string>,
   ): string {
     return this.isBlank(str)
       ? ObjectUtils.isNull(defaultSupplier)
@@ -1351,7 +1351,7 @@ export class StringUtils {
    */
   public static getIfEmpty(
     str: string,
-    defaultSupplier: Supplier<string>
+    defaultSupplier: Supplier<string>,
   ): string {
     return this.isEmpty(str)
       ? ObjectUtils.isNull(defaultSupplier)
@@ -1390,7 +1390,7 @@ export class StringUtils {
   public static indexOf(
     str: string,
     searchString: string,
-    startPos = 0
+    startPos = 0,
   ): number {
     if (ObjectUtils.anyNull(str, searchString)) {
       return this.INDEX_NOT_FOUND;
@@ -1594,7 +1594,7 @@ export class StringUtils {
   public static indexOfIgnoreCase(
     str: string,
     searchStr: string,
-    startPos = 0
+    startPos = 0,
   ): number {
     if (ObjectUtils.anyNull(str, searchStr)) {
       return this.INDEX_NOT_FOUND;
@@ -2041,7 +2041,7 @@ export class StringUtils {
     }
     const sz = str.length;
     for (let i = 0; i < sz; i++) {
-      if (str.charAt(i) === " ") {
+      if (str.charAt(i) === ' ') {
         return false;
       }
     }
@@ -2085,7 +2085,7 @@ export class StringUtils {
     array: T[],
     separator = this.EMPTY,
     startIndex = 0,
-    endIndex = array.length
+    endIndex = array.length,
   ): string {
     if (ObjectUtils.isNull(array)) {
       return null;
@@ -2095,11 +2095,11 @@ export class StringUtils {
     }
 
     if (startIndex < 0) {
-      throw new IndexOutOfBoundsError("startIndex 不可小于0");
+      throw new IndexOutOfBoundsError('startIndex 不可小于0');
     } else if (startIndex >= array.length) {
-      throw new IndexOutOfBoundsError("startIndex 不可大于等于数组长度");
+      throw new IndexOutOfBoundsError('startIndex 不可大于等于数组长度');
     } else if (endIndex < 0) {
-      throw new IndexOutOfBoundsError("endIndex 不可小于0");
+      throw new IndexOutOfBoundsError('endIndex 不可小于0');
     } else if (endIndex > array.length) {
       throw new IndexOutOfBoundsError(`endIndex 不可大于数组长度`);
     }
@@ -2160,7 +2160,7 @@ export class StringUtils {
   public static lastIndexOf(
     str: string,
     searchStr: string,
-    startPos = str.length
+    startPos = str.length,
   ): number {
     if (ObjectUtils.anyNull(str, searchStr)) {
       return this.INDEX_NOT_FOUND;
@@ -2240,7 +2240,7 @@ export class StringUtils {
   public static lastIndexOfIgnoreCase(
     str: string,
     searchStr: string,
-    startPos = str.length
+    startPos = str.length,
   ): number {
     if (ObjectUtils.anyNull(str, searchStr)) {
       return this.INDEX_NOT_FOUND;
@@ -2286,7 +2286,7 @@ export class StringUtils {
   public static lastOrdinalIndexOf(
     str: string,
     searchStr: string,
-    ordinal: number
+    ordinal: number,
   ): number {
     return this.ordinalStrIndexOf(str, searchStr, ordinal, true);
   }
@@ -2348,7 +2348,7 @@ export class StringUtils {
   public static leftPad(
     str: string,
     size: number,
-    padStr = this.SPACE
+    padStr = this.SPACE,
   ): string {
     if (ObjectUtils.isNull(str)) {
       return null;
@@ -2473,7 +2473,7 @@ export class StringUtils {
   public static ordinalIndexOf(
     str: string,
     searchStr: string,
-    ordinal: number
+    ordinal: number,
   ): number {
     return this.ordinalStrIndexOf(str, searchStr, ordinal, false);
   }
@@ -2509,7 +2509,7 @@ export class StringUtils {
     str: string,
     overlay: string,
     start: number,
-    end: number
+    end: number,
   ): string {
     if (ObjectUtils.isNull(str)) {
       return null;
@@ -2826,13 +2826,13 @@ export class StringUtils {
   public static repeat(
     str: string,
     separator: string | number,
-    repeat?: number
+    repeat?: number,
   ): string {
     if (ObjectUtils.anyNull(str, separator)) {
       return this.repeat(str, repeat);
     }
 
-    if (typeof separator === "number") {
+    if (typeof separator === 'number') {
       if (ObjectUtils.isNull(str)) {
         return null;
       }
@@ -2876,7 +2876,7 @@ export class StringUtils {
     text: string,
     searchString: string,
     replacement: string,
-    max = -1
+    max = -1,
   ): string {
     return this.replaceStr(text, searchString, replacement, max, false);
   }
@@ -2915,7 +2915,7 @@ export class StringUtils {
   public static replaceChars(
     str: string,
     searchChars: string,
-    replaceChars: string
+    replaceChars: string,
   ): string {
     if (this.isEmpty(str) || this.isEmpty(searchChars)) {
       return str;
@@ -2940,7 +2940,7 @@ export class StringUtils {
       }
     }
     if (modified) {
-      return buf.join("");
+      return buf.join('');
     }
     return str;
   }
@@ -2975,7 +2975,7 @@ export class StringUtils {
     text: string,
     searchString: string,
     replacement: string,
-    max = -1
+    max = -1,
   ): string {
     return this.replaceStr(text, searchString, replacement, max, true);
   }
@@ -3004,7 +3004,7 @@ export class StringUtils {
   public static replaceOnce(
     text: string,
     searchString: string,
-    replacement: string
+    replacement: string,
   ): string {
     return this.replaceStr(text, searchString, replacement, 1, false);
   }
@@ -3034,7 +3034,7 @@ export class StringUtils {
   public static replaceOnceIgnoreCase(
     text: string,
     searchString: string,
-    replacement: string
+    replacement: string,
   ): string {
     return this.replaceStr(text, searchString, replacement, 1, true);
   }
@@ -3057,7 +3057,7 @@ export class StringUtils {
     if (ObjectUtils.isNull(str)) {
       return null;
     }
-    return this.toChars(str).reverse().join("");
+    return this.toChars(str).reverse().join('');
   }
 
   /**
@@ -3140,7 +3140,7 @@ export class StringUtils {
   public static rightPad(
     str: string,
     size: number,
-    padStr = this.SPACE
+    padStr = this.SPACE,
   ): string {
     if (ObjectUtils.isNull(str)) {
       return null;
@@ -3187,7 +3187,7 @@ export class StringUtils {
     const buf = [];
     const offset = -(shift % strLen);
     buf.push(this.substring(str, offset), this.substring(str, 0, offset));
-    return buf.join("");
+    return buf.join('');
   }
 
   /**
@@ -3217,7 +3217,7 @@ export class StringUtils {
   public static split(
     str: string,
     separatorChars = this.EMPTY,
-    max = -1
+    max = -1,
   ): string[] {
     return this.splitWorker(str, separatorChars, max, false);
   }
@@ -3248,7 +3248,7 @@ export class StringUtils {
   public static splitByWholeSeparator(
     str: string,
     separatorChars: string,
-    max = -1
+    max = -1,
   ): string[] {
     return this.splitByWholeSeparatorWorker(str, separatorChars, max, false);
   }
@@ -3279,7 +3279,7 @@ export class StringUtils {
   public static splitByWholeSeparatorPreserveAllTokens(
     str: string,
     separatorChars: string,
-    max = -1
+    max = -1,
   ): string[] {
     return this.splitByWholeSeparatorWorker(str, separatorChars, max, true);
   }
@@ -3314,7 +3314,7 @@ export class StringUtils {
   public static splitPreserveAllTokens(
     str: string,
     separatorChars = this.EMPTY,
-    max = -1
+    max = -1,
   ): string[] {
     return this.splitWorker(str, separatorChars, max, true);
   }
@@ -3341,7 +3341,7 @@ export class StringUtils {
   public static startsWith(
     str: string,
     prefix: string,
-    ignoreCase = false
+    ignoreCase = false,
   ): boolean {
     if (ObjectUtils.anyNull(str, prefix)) {
       return str === prefix;
@@ -3487,7 +3487,7 @@ export class StringUtils {
    */
   public static stripAllWithChars(strs: string[], stripChars = null): string[] {
     if (!Array.isArray(strs)) {
-      throw new TypeError("strs 必须是数组或可变参数");
+      throw new TypeError('strs 必须是数组或可变参数');
     }
     if (ObjectUtils.isNull(stripChars)) {
       stripChars = null;
@@ -3537,7 +3537,7 @@ export class StringUtils {
       while (end != 0 && this.isWhitespace(str.charAt(end - 1))) {
         end--;
       }
-    } else if (stripChars === "") {
+    } else if (stripChars === '') {
       return str;
     } else {
       while (end != 0 && stripChars.includes(str.charAt(end - 1))) {
@@ -3910,7 +3910,7 @@ export class StringUtils {
   public static substringBetween(
     str: string,
     open: string,
-    close?: string
+    close?: string,
   ): string {
     if (!ObjectUtils.allNotNull(str, open, close)) {
       return null;
@@ -3953,7 +3953,7 @@ export class StringUtils {
   public static substringsBetween(
     str: string,
     open: string,
-    close: string
+    close: string,
   ): string[] {
     if (ObjectUtils.isNull(str) || this.isEmpty(str) || this.isEmpty(close)) {
       return null;
@@ -4021,7 +4021,7 @@ export class StringUtils {
       }
       newChars[i] = newChar;
     }
-    return newChars.join("");
+    return newChars.join('');
   }
 
   /**
@@ -4148,7 +4148,7 @@ export class StringUtils {
    * @return {} 转换后的字符串, 如果字符串数组输入为 null 或 undefined 则返回 null
    */
   public static fromChars(...chars: string[]): string {
-    return ObjectUtils.isNull(chars) ? null : chars.join("");
+    return ObjectUtils.isNull(chars) ? null : chars.join('');
   }
 
   /**
@@ -4270,10 +4270,10 @@ export class StringUtils {
    */
   public static truncate(str: string, maxWidth: number, offset = 0): string {
     if (offset < 0) {
-      throw new RangeError("偏移量不能为负数");
+      throw new RangeError('偏移量不能为负数');
     }
     if (maxWidth < 0) {
-      throw new RangeError("最大长度不能为负数");
+      throw new RangeError('最大长度不能为负数');
     }
     if (ObjectUtils.isNull(str)) {
       return null;
@@ -4352,7 +4352,7 @@ export class StringUtils {
     str2: string,
     str2Offset: number,
     length: number,
-    ignoreCase: boolean
+    ignoreCase: boolean,
   ): boolean {
     const strArr = this.toChars(str1);
     let to = str1Offset;
@@ -4364,7 +4364,7 @@ export class StringUtils {
       BooleanUtils.or(
         str1Offset < 0 || str2Offset < 0,
         str1Offset > strArr.length - length,
-        str2Offset > otherArr.length - length
+        str2Offset > otherArr.length - length,
       )
     ) {
       return false;
@@ -4401,11 +4401,11 @@ export class StringUtils {
     if (this.isEmpty(str)) {
       return this.EMPTY;
     }
-    const strArr = str.split("_");
+    const strArr = str.split('_');
     for (let i = 1; i < strArr.length; i++) {
       strArr[i] = strArr[i].charAt(0).toUpperCase() + strArr[i].substring(1);
     }
-    return strArr.join("");
+    return strArr.join('');
   }
 
   /**
@@ -4429,17 +4429,17 @@ export class StringUtils {
     indexArr.forEach((value, index) => {
       newStr.push(
         str.charAt(value).toLowerCase() +
-          str.substring(value + 1, indexArr[index + 1])
+          str.substring(value + 1, indexArr[index + 1]),
       );
     });
-    return newStr.join("_");
+    return newStr.join('_');
   }
 
   private static compareStr(
     str1: string,
     str2: string,
     nullIsLess: boolean,
-    ignoreCase: boolean
+    ignoreCase: boolean,
   ): number {
     if (str1 === str2) {
       return 0;
@@ -4473,7 +4473,7 @@ export class StringUtils {
     str: string,
     searchString: string,
     ordinal: number,
-    lastIndex: boolean
+    lastIndex: boolean,
   ): number {
     if (ObjectUtils.anyNull(str, searchString) || ordinal <= 0) {
       return this.INDEX_NOT_FOUND;
@@ -4525,7 +4525,7 @@ export class StringUtils {
     searchString: string,
     replacement: string,
     max: number,
-    ignoreCase: boolean
+    ignoreCase: boolean,
   ): string {
     if (
       this.isEmpty(text) ||
@@ -4558,14 +4558,14 @@ export class StringUtils {
         : this.indexOf(text, searchString, start);
     }
     buf.push(text.substring(start));
-    return buf.join("");
+    return buf.join('');
   }
 
   private static splitByWholeSeparatorWorker(
     str: string,
     separator: string,
     max: number,
-    preserveAllTokens: boolean
+    preserveAllTokens: boolean,
   ): string[] {
     if (ObjectUtils.isNull(str)) {
       return null;
@@ -4625,7 +4625,7 @@ export class StringUtils {
     str: string,
     separatorChars,
     max: number,
-    preserveAllTokens: boolean
+    preserveAllTokens: boolean,
   ): string[] {
     if (ObjectUtils.isNull(str)) {
       return null;

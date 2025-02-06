@@ -1,47 +1,14 @@
-/* Visit https://aka.ms/tsconfig.json to read more about this file */
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    // 输出目录
-    "outDir": "./dist",
-    // 是否生成sourceMap
-    "sourceMap": false,
-    // 编译目标
     "target": "ES5",
-    // 模块类型
     "module": "ESNext",
-    "moduleResolution": "node",
-    // 是否允许编译js文件
-    "allowJs": false,
-    // 严格模式
-    "strict": false,
-    // 未使用变量报错
-    "noUnusedLocals": false,
-    // 启动装饰器
-    "experimentalDecorators": true,
-    // 加载json
-    "resolveJsonModule": true,
-    // 允许export=导出，由import from 导入
-    "esModuleInterop": true,
-    // 允许默认导入
-    "allowSyntheticDefaultImports": true,
-    // 删除注释
-    "removeComments": false,
-    // 生成定义文件
+    "moduleResolution": "Node",
     "declaration": true,
-    // 生成定义sourceMap
-    "declarationMap": false,
-    // 定义文件输出目录
-    "declarationDir": "./dist",
-    // 导入库类型定义
+    "declarationDir": "dist/types",
+    "outDir": "dist",
+    "strict": false,
     "lib": ["esnext", "dom"],
-    // 导入指定类型包
-    "types": [],
+    "importHelpers": true
   },
-  // 排除目录
-  "exclude": ["node_modules", "dist"],
-  // 导入目录
-  "include": [
-    "src/*"
-  ]
+  "exclude": ["test/**"]
 }

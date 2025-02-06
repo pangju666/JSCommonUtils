@@ -47,8 +47,6 @@ jspm_packages/
 .npm
 
 # Optional eslint cache
-.eslintcache
-
 # Microbundle cache
 .rpt2_cache/
 .rts2_cache_cjs/
@@ -97,3 +95,4 @@ jspm_packages/
 .idea
 doc
 pnpm-lock.yaml
+dist/

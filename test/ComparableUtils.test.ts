@@ -1,8 +1,8 @@
-import { describe, test, expect } from "@jest/globals";
-import { ComparableUtils, NumberUtils } from "../src";
+//import { describe, test, expect } from "@jest/globals";
+import { ComparableUtils, NumberUtils } from '../src';
 
-describe("ComparableUtilsTest", () => {
-  test("betweenTest", () => {
+describe('ComparableUtilsTest', () => {
+  test('betweenTest', () => {
     const cb = ComparableUtils.between(1, 2, (a, b) => a - b);
     expect(cb(1)).toBeTruthy();
     expect(cb(2)).toBeTruthy();
@@ -16,7 +16,7 @@ describe("ComparableUtilsTest", () => {
     expect(cb2(0)).toBeFalsy();
   });
 
-  test("betweenExclusiveTest", () => {
+  test('betweenExclusiveTest', () => {
     const cb = ComparableUtils.betweenExclusive(1, 2, (a, b) => a - b);
     expect(cb(1)).toBeFalsy();
     expect(cb(2)).toBeFalsy();
@@ -30,35 +30,35 @@ describe("ComparableUtilsTest", () => {
     expect(cb2(0)).toBeFalsy();
   });
 
-  test("eqTest", () => {
+  test('eqTest', () => {
     const cb = ComparableUtils.eq(1, (a, b) => a - b);
     expect(cb(1)).toBeTruthy();
     expect(cb(2)).toBeFalsy();
     expect(cb(0)).toBeFalsy();
   });
 
-  test("geTest", () => {
+  test('geTest', () => {
     const cb = ComparableUtils.ge(1, (a, b) => a - b);
     expect(cb(2)).toBeTruthy();
     expect(cb(1)).toBeTruthy();
     expect(cb(0)).toBeFalsy();
   });
 
-  test("gtTest", () => {
+  test('gtTest', () => {
     const cb = ComparableUtils.gt(1, (a, b) => a - b);
     expect(cb(2)).toBeTruthy();
     expect(cb(1)).toBeFalsy();
     expect(cb(0)).toBeFalsy();
   });
 
-  test("leTest", () => {
+  test('leTest', () => {
     const cb = ComparableUtils.le(3, (a, b) => a - b);
     expect(cb(3)).toBeTruthy();
     expect(cb(2)).toBeTruthy();
     expect(cb(4)).toBeFalsy();
   });
 
-  test("ltTest", () => {
+  test('ltTest', () => {
     const cb = ComparableUtils.lt(3, (a, b) => a - b);
     expect(cb(2)).toBeTruthy();
     expect(cb(3)).toBeFalsy();

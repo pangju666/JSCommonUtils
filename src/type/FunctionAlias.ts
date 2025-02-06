@@ -61,7 +61,7 @@ export type Converter<T> = (t) => T;
 export type ArrayPredicate<T> = (
   element: T,
   index?: number,
-  obj?: T[]
+  obj?: T[],
 ) => boolean;
 
 /**

@@ -1,10 +1,10 @@
-import { ObjectUtils } from "./ObjectUtils";
+import { ObjectUtils } from './ObjectUtils';
 import {
   IllegalArgumentError,
   NullError,
   ParseError,
-} from "../error/runtimeError";
-import * as dateFns from "date-fns";
+} from '../error/runtimeError';
+import * as dateFns from 'date-fns';
 
 /**
  * 日期工具类
@@ -42,7 +42,7 @@ export class DateUtils {
    */
   public static isSameDay(date1: Date | number, date2: Date | number): boolean {
     if (ObjectUtils.anyNull(date1, date2)) {
-      throw new IllegalArgumentError("日期不能为空");
+      throw new IllegalArgumentError('日期不能为空');
     }
     return (
       dateFns.getYear(date1) === dateFns.getYear(date2) &&
@@ -62,10 +62,10 @@ export class DateUtils {
    */
   public static isSameInstant(
     date1: Date | number,
-    date2: Date | number
+    date2: Date | number,
   ): boolean {
     if (ObjectUtils.anyNull(date1, date2)) {
-      throw new IllegalArgumentError("日期不能为空");
+      throw new IllegalArgumentError('日期不能为空');
     }
     return dateFns.getTime(date1) === dateFns.getTime(date2);
   }
@@ -84,7 +84,7 @@ export class DateUtils {
    */
   public static parseDate(str: string, ...parsePatterns: string[]): Date {
     if (ObjectUtils.anyNull(str, parsePatterns)) {
-      throw new IllegalArgumentError("日期或解析表达式不能为空");
+      throw new IllegalArgumentError('日期或解析表达式不能为空');
     }
 
     const date = new Date();
@@ -94,7 +94,7 @@ export class DateUtils {
         // eslint-disable-next-line no-empty
       } catch (e) {}
     }
-    throw new ParseError("无法解析日期: " + str);
+    throw new ParseError('无法解析日期: ' + str);
   }
 
   /**
@@ -107,7 +107,7 @@ export class DateUtils {
    */
   public static addYears(date: Date | number, amount: number): Date {
     if (ObjectUtils.isNull(date)) {
-      throw new NullError("日期不能为空");
+      throw new NullError('日期不能为空');
     }
     return dateFns.addYears(date, Math.floor(amount));
   }
@@ -122,7 +122,7 @@ export class DateUtils {
    */
   public static addQuarters(date: Date | number, amount: number): Date {
     if (ObjectUtils.isNull(date)) {
-      throw new NullError("日期不能为空");
+      throw new NullError('日期不能为空');
     }
     return dateFns.addQuarters(date, Math.floor(amount));
   }
@@ -137,7 +137,7 @@ export class DateUtils {
    */
   public static addMonths(date: Date | number, amount: number): Date {
     if (ObjectUtils.isNull(date)) {
-      throw new NullError("日期不能为空");
+      throw new NullError('日期不能为空');
     }
     return dateFns.addMonths(date, Math.floor(amount));
   }
@@ -152,7 +152,7 @@ export class DateUtils {
    */
   public static addWeeks(date: Date | number, amount: number): Date {
     if (ObjectUtils.isNull(date)) {
-      throw new NullError("日期不能为空");
+      throw new NullError('日期不能为空');
     }
     return dateFns.addWeeks(date, Math.floor(amount));
   }
@@ -167,7 +167,7 @@ export class DateUtils {
    */
   public static addBusinessDays(date: Date | number, amount: number): Date {
     if (ObjectUtils.isNull(date)) {
-      throw new NullError("日期不能为空");
+      throw new NullError('日期不能为空');
     }
     return dateFns.addBusinessDays(date, Math.floor(amount));
   }
@@ -182,7 +182,7 @@ export class DateUtils {
    */
   public static addDays(date: Date | number, amount: number): Date {
     if (ObjectUtils.isNull(date)) {
-      throw new NullError("日期不能为空");
+      throw new NullError('日期不能为空');
     }
     return dateFns.addDays(date, Math.floor(amount));
   }
@@ -197,7 +197,7 @@ export class DateUtils {
    */
   public static addHours(date: Date | number, amount: number): Date {
     if (ObjectUtils.isNull(date)) {
-      throw new NullError("日期不能为空");
+      throw new NullError('日期不能为空');
     }
     return dateFns.addHours(date, Math.floor(amount));
   }
@@ -212,7 +212,7 @@ export class DateUtils {
    */
   public static addMinutes(date: Date | number, amount: number): Date {
     if (ObjectUtils.isNull(date)) {
-      throw new NullError("日期不能为空");
+      throw new NullError('日期不能为空');
     }
     return dateFns.addMinutes(date, Math.floor(amount));
   }
@@ -227,7 +227,7 @@ export class DateUtils {
    */
   public static addSeconds(date: Date | number, amount: number): Date {
     if (ObjectUtils.isNull(date)) {
-      throw new NullError("日期不能为空");
+      throw new NullError('日期不能为空');
     }
     return dateFns.addSeconds(date, Math.floor(amount));
   }
@@ -242,7 +242,7 @@ export class DateUtils {
    */
   public static addMilliseconds(date: Date | number, amount: number): Date {
     if (ObjectUtils.isNull(date)) {
-      throw new NullError("日期不能为空");
+      throw new NullError('日期不能为空');
     }
     return dateFns.addMilliseconds(date, Math.floor(amount));
   }
@@ -257,7 +257,7 @@ export class DateUtils {
    */
   public static setYear(date: Date | number, year: number): Date {
     if (ObjectUtils.isNull(date)) {
-      throw new NullError("日期不能为空");
+      throw new NullError('日期不能为空');
     }
     return dateFns.setYear(date, Math.floor(year));
   }
@@ -272,7 +272,7 @@ export class DateUtils {
    */
   public static setQuarter(date: Date | number, quarter: number): Date {
     if (ObjectUtils.isNull(date)) {
-      throw new NullError("日期不能为空");
+      throw new NullError('日期不能为空');
     }
     return dateFns.setQuarter(date, Math.floor(quarter));
   }
@@ -287,7 +287,7 @@ export class DateUtils {
    */
   public static setMonth(date: Date | number, month: number): Date {
     if (ObjectUtils.isNull(date)) {
-      throw new NullError("日期不能为空");
+      throw new NullError('日期不能为空');
     }
     return dateFns.setMonth(date, Math.floor(month - 1));
   }
@@ -302,7 +302,7 @@ export class DateUtils {
    */
   public static setDate(date: Date | number, day: number): Date {
     if (ObjectUtils.isNull(date)) {
-      throw new NullError("日期不能为空");
+      throw new NullError('日期不能为空');
     }
     return dateFns.setDate(date, Math.floor(day));
   }
@@ -317,7 +317,7 @@ export class DateUtils {
    */
   public static setHours(date: Date | number, hour: number): Date {
     if (ObjectUtils.isNull(date)) {
-      throw new NullError("日期不能为空");
+      throw new NullError('日期不能为空');
     }
     return dateFns.setHours(date, Math.floor(hour));
   }
@@ -332,7 +332,7 @@ export class DateUtils {
    */
   public static setMinutes(date: Date | number, minutes: number): Date {
     if (ObjectUtils.isNull(date)) {
-      throw new NullError("日期不能为空");
+      throw new NullError('日期不能为空');
     }
     return dateFns.setMinutes(date, Math.floor(minutes));
   }
@@ -347,7 +347,7 @@ export class DateUtils {
    */
   public static setSeconds(date: Date | number, seconds: number): Date {
     if (ObjectUtils.isNull(date)) {
-      throw new NullError("日期不能为空");
+      throw new NullError('日期不能为空');
     }
     return dateFns.setSeconds(date, Math.floor(seconds));
   }
@@ -362,10 +362,10 @@ export class DateUtils {
    */
   public static setMilliseconds(
     date: Date | number,
-    milliseconds: number
+    milliseconds: number,
   ): Date {
     if (ObjectUtils.isNull(date)) {
-      throw new NullError("日期不能为空");
+      throw new NullError('日期不能为空');
     }
     return dateFns.setMilliseconds(date, Math.floor(milliseconds));
   }
@@ -380,16 +380,16 @@ export class DateUtils {
    */
   public static toDate(timestamp: number | string): Date {
     if (ObjectUtils.isNull(timestamp)) {
-      throw new NullError("时间戳不可为空");
+      throw new NullError('时间戳不可为空');
     }
 
-    if (typeof timestamp === "number") {
+    if (typeof timestamp === 'number') {
       return dateFns.toDate(timestamp);
     }
 
     const timestampVal = parseInt(timestamp, 10);
     if (Number.isNaN(timestampVal)) {
-      throw new IllegalArgumentError("时间戳格式不正确");
+      throw new IllegalArgumentError('时间戳格式不正确');
     }
     return dateFns.toDate(timestampVal);
   }

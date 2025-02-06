@@ -108,3 +108,4 @@ dist
 /node_modules/
 doc
 pnpm-lock.yaml
+.husky

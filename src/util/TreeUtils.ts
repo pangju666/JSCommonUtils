@@ -1,6 +1,6 @@
-import { TreeProp } from "../interface/TreeProp";
-import { ArrayUtils } from "./ArrayUtils";
-import { ObjectUtils } from "./ObjectUtils";
+import { TreeProp } from '../interface/TreeProp';
+import { ArrayUtils } from './ArrayUtils';
+import { ObjectUtils } from './ObjectUtils';
 
 /**
  * 树型结构工具类
@@ -24,10 +24,10 @@ export class TreeUtils {
   public static toTree<T>(
     sourceItems: T[],
     props: TreeProp = {
-      id: "id",
-      parentId: "parentId",
-      children: "children",
-    }
+      id: 'id',
+      parentId: 'parentId',
+      children: 'children',
+    },
   ): T[] {
     if (ArrayUtils.isEmpty(sourceItems)) {
       return [];
@@ -35,7 +35,7 @@ export class TreeUtils {
 
     const treeNodeMap = new Map();
     sourceItems.forEach((sourceNode) =>
-      treeNodeMap.set(sourceNode[props.id], sourceNode)
+      treeNodeMap.set(sourceNode[props.id], sourceNode),
     );
 
     const treeNodes = [];
@@ -65,10 +65,10 @@ export class TreeUtils {
   public static getNodes<T>(
     nodes: T[],
     props: TreeProp = {
-      id: "id",
-      parentId: "parentId",
-      children: "children",
-    }
+      id: 'id',
+      parentId: 'parentId',
+      children: 'children',
+    },
   ): T[] {
     if (ArrayUtils.isEmpty(nodes)) {
       return [];
@@ -96,7 +96,7 @@ export class TreeUtils {
   public static forEach<T>(
     nodes: T[],
     childrenKey: string,
-    callback: (node: T, parentNode: T) => void
+    callback: (node: T, parentNode: T) => void,
   ): void {
     this.forEachImpl(null, nodes, childrenKey, callback);
   }
@@ -105,13 +105,13 @@ export class TreeUtils {
     parentNode: T,
     nodes: T[],
     childrenKey: string,
-    callback: (node: T, parentNode: T) => void
+    callback: (node: T, parentNode: T) => void,
   ): void {
     for (const node of nodes) {
       callback(node, parentNode);
       if (ObjectUtils.isNotNull(node[childrenKey])) {
         if (!Array.isArray(node[childrenKey])) {
-          throw new TypeError("子节点必须为数组");
+          throw new TypeError('子节点必须为数组');
         }
         this.forEachImpl(node, node[childrenKey], childrenKey, callback);
       }

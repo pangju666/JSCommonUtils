@@ -1,5 +1,5 @@
-import { ObjectUtils } from "./ObjectUtils";
-import { Comparator, Predicate } from "../type/FunctionAlias";
+import { ObjectUtils } from './ObjectUtils';
+import { Comparator, Predicate } from '../type/FunctionAlias';
 
 /**
  * 比较工具类
@@ -35,7 +35,7 @@ export class ComparableUtils {
   public static betweenExclusive<T>(
     b: T,
     c: T,
-    compareTo: Comparator<T>
+    compareTo: Comparator<T>,
   ): Predicate<T> {
     return (a) =>
       this.betweenOrderedExclusive(a, b, c, compareTo) ||
@@ -101,7 +101,7 @@ export class ComparableUtils {
     a: T,
     b: T,
     c: T,
-    compareTo: Comparator<T>
+    compareTo: Comparator<T>,
   ): boolean {
     return (
       this.greaterThanOrEqualTo(a, b, compareTo) &&
@@ -113,7 +113,7 @@ export class ComparableUtils {
     a: T,
     b: T,
     c: T,
-    compareTo: Comparator<T>
+    compareTo: Comparator<T>,
   ): boolean {
     return this.greaterThan(a, b, compareTo) && this.lessThan(a, c, compareTo);
   }
@@ -125,7 +125,7 @@ export class ComparableUtils {
   private static greaterThanOrEqualTo<T>(
     a: T,
     b: T,
-    compareTo: Comparator<T>
+    compareTo: Comparator<T>,
   ): boolean {
     return ObjectUtils.compare(a, b, compareTo) >= 0;
   }
@@ -137,7 +137,7 @@ export class ComparableUtils {
   private static lessThanOrEqualTo<T>(
     a: T,
     b: T,
-    compareTo: Comparator<T>
+    compareTo: Comparator<T>,
   ): boolean {
     return ObjectUtils.compare(a, b, compareTo) <= 0;
   }

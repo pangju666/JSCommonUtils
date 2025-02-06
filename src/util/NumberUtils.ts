@@ -1,5 +1,5 @@
-import { ObjectUtils } from "./ObjectUtils";
-import { IllegalArgumentError } from "../error/runtimeError";
+import { ObjectUtils } from './ObjectUtils';
+import { IllegalArgumentError } from '../error/runtimeError';
 
 /**
  * 数字工具类
@@ -146,11 +146,11 @@ export class NumberUtils {
    */
   public static round(value: number, digits = 0): number {
     if (digits < 0 || digits > 20) {
-      throw new IllegalArgumentError("小数点后的位数，必须在 0 - 20 的范围内");
+      throw new IllegalArgumentError('小数点后的位数，必须在 0 - 20 的范围内');
     }
     const fractionDigits = Math.floor(digits);
     return Number(
-      Math.round(Number(value + "e" + fractionDigits)) + "e-" + fractionDigits
+      Math.round(Number(value + 'e' + fractionDigits)) + 'e-' + fractionDigits,
     );
   }
 
@@ -164,11 +164,11 @@ export class NumberUtils {
    */
   public static toFixed(value: number, digits = 0): number {
     if (digits < 0 || digits > 20) {
-      throw new IllegalArgumentError("小数点后的位数，必须在 0 - 20 的范围内");
+      throw new IllegalArgumentError('小数点后的位数，必须在 0 - 20 的范围内');
     }
     const fractionDigits = Math.floor(digits);
     return Number(
-      Math.floor(Number(value + "e" + fractionDigits)) + "e-" + fractionDigits
+      Math.floor(Number(value + 'e' + fractionDigits)) + 'e-' + fractionDigits,
     );
   }
 
