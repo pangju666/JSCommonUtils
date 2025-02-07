@@ -1,13 +1,15 @@
 export default {
   preset: 'ts-jest',
-  testEnvironment: 'jsdom', // ✅ 让 Jest 运行在浏览器环境
+  testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.(ts|js)$': 'babel-jest', // ✅ 让 Babel 处理测试代码
+    '^.+\\.ts$': [
+      'ts-jest',
+      {
+        useESM: true,
+      },
+    ],
   },
-  moduleFileExtensions: ['ts', 'js'],
-  globals: {
-    'ts-jest': {
-      useESM: true, // ✅ 让 Jest 识别 ESM 代码
-    },
+  moduleNameMapper: {
+    '^src/(.*)': '<rootDir>/src/$1',
   },
 };
