@@ -1,5 +1,4 @@
-//import { describe, test, expect } from "@jest/globals";
-import { ComparableUtils, NumberUtils } from '../src';
+import { ComparableUtils, NumberUtils } from 'pangju-utils';
 
 describe('ComparableUtilsTest', () => {
   test('betweenTest', () => {

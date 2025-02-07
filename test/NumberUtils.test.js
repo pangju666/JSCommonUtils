@@ -1,5 +1,4 @@
-//import { describe, test, expect } from "@jest/globals";
-import { NumberUtils } from '../src';
+import { NumberUtils } from 'pangju-utils';
 
 describe('NumberUtilsTest', () => {
   test('toIntTest', () => {

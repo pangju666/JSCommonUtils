@@ -1,5 +1,4 @@
-//import { describe, expect, test } from "@jest/globals";
-import { RegexUtils } from '../src';
+import { RegexUtils } from 'pangju-utils';
 
 describe('TreeUtilsTest', () => {
   test('regexTest', () => {

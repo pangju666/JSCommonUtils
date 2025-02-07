@@ -1,5 +1,4 @@
-//import { describe, test, expect } from "@jest/globals";
-import { BooleanUtils } from '../src';
+import { BooleanUtils } from 'pangju-utils';
 
 describe('BooleanUtilsTest', () => {
   test('andTest', () => {
@@ -55,11 +54,7 @@ describe('BooleanUtilsTest', () => {
   });
 
   test('toStringTest', () => {
-    expect(BooleanUtils.toString(true, 'true', 'false', null)).toStrictEqual(
-      'true',
-    );
-    expect(BooleanUtils.toString(false, 'true', 'false', null)).toStrictEqual(
-      'false',
-    );
+    expect(BooleanUtils.toString(true, 'true', 'false', null)).toStrictEqual('true');
+    expect(BooleanUtils.toString(false, 'true', 'false', null)).toStrictEqual('false');
   });
 });

@@ -5,6 +5,6 @@ export default {
   },
   moduleFileExtensions: ['js', 'json'],
   moduleNameMapper: {
-    '^/(.*)': '<rootDir>/dist/$1',
+    '^pangju-utils$': '<rootDir>/dist/pangju-utils.esm.js',
   },
 };

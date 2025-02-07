@@ -1,4 +1,3 @@
-//import { describe, test, expect } from "@jest/globals";
 import { ObjectUtils } from 'pangju-utils';
 
 describe('ObjectUtilsTest', () => {

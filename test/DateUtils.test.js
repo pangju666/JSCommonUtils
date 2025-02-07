@@ -1,5 +1,4 @@
-//import { describe, test, expect } from "@jest/globals";
-import { DateFormatUtils, DateUtils } from '../src';
+import { DateFormatUtils, DateUtils } from 'pangju-utils';
 
 describe('DateUtilsTest', () => {
   test('isDateTest', () => {
@@ -8,10 +7,7 @@ describe('DateUtilsTest', () => {
 
   test('isSameDayTest', () => {
     expect(
-      DateUtils.isSameDay(
-        new Date(2021, 10, 22, 10, 22, 10),
-        new Date(2021, 10, 22, 11, 10, 15),
-      ),
+      DateUtils.isSameDay(new Date(2021, 10, 22, 10, 22, 10), new Date(2021, 10, 22, 11, 10, 15)),
     ).toBeTruthy();
   });
 
@@ -26,16 +22,14 @@ describe('DateUtilsTest', () => {
   });
 
   test('parseDateTest', () => {
-    expect(
-      DateUtils.parseDate('2022-9-27', DateFormatUtils.DATE_FORMAT),
-    ).toStrictEqual(new Date(2022, 8, 27));
+    expect(DateUtils.parseDate('2022-9-27', DateFormatUtils.DATE_FORMAT)).toStrictEqual(
+      new Date(2022, 8, 27),
+    );
   });
 
   test('toDateTest', () => {
     expect(DateUtils.toDate(new Date().getTime())).toStrictEqual(new Date());
-    expect(DateUtils.toDate(new Date().getTime().toString(10))).toStrictEqual(
-      new Date(),
-    );
+    expect(DateUtils.toDate(new Date().getTime().toString(10))).toStrictEqual(new Date());
   });
 
   test('addYearsTest', () => {
@@ -67,23 +61,16 @@ describe('DateUtilsTest', () => {
   });
 
   test('addMinutesTest', () => {
-    expect(
-      DateUtils.addMinutes(new Date(2022, 10, 22, 10, 11), 1).getMinutes(),
-    ).toEqual(12);
+    expect(DateUtils.addMinutes(new Date(2022, 10, 22, 10, 11), 1).getMinutes()).toEqual(12);
   });
 
   test('addSecondsTest', () => {
-    expect(
-      DateUtils.addSeconds(new Date(2022, 9, 27, 15, 14, 10), 1).getSeconds(),
-    ).toEqual(11);
+    expect(DateUtils.addSeconds(new Date(2022, 9, 27, 15, 14, 10), 1).getSeconds()).toEqual(11);
   });
 
   test('addMillisecondsTest', () => {
     expect(
-      DateUtils.addMilliseconds(
-        new Date(2022, 9, 27, 15, 14, 10, 100),
-        1,
-      ).getMilliseconds(),
+      DateUtils.addMilliseconds(new Date(2022, 9, 27, 15, 14, 10, 100), 1).getMilliseconds(),
     ).toEqual(101);
   });
 
@@ -116,8 +103,6 @@ describe('DateUtilsTest', () => {
   });
 
   test('setMillisecondsTest', () => {
-    expect(DateUtils.setMilliseconds(new Date(), 1).getMilliseconds()).toEqual(
-      1,
-    );
+    expect(DateUtils.setMilliseconds(new Date(), 1).getMilliseconds()).toEqual(1);
   });
 });
