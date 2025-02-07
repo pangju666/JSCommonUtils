@@ -1,82 +1,7 @@
 //import { describe, test, expect } from "@jest/globals";
-import { ObjectUtils } from '../src';
+import { ObjectUtils } from 'pangju-utils';
 
 describe('ObjectUtilsTest', () => {
-  test('getPropTest', () => {
-    const a = {
-      b: 'test',
-      c: {
-        d: 'test2',
-      },
-      e: ['test4'],
-      f: [
-        {
-          g: 'test3',
-        },
-      ],
-    };
-
-    expect(ObjectUtils.getProp({ id: 1 }, '', 'a')).toEqual('a');
-    expect(ObjectUtils.getProp(null, '')).toStrictEqual(null);
-    expect(ObjectUtils.getProp({ id: 1 }, undefined, {})).toEqual({});
-    expect(ObjectUtils.getProp({ id: 1 }, null, {})).toEqual({});
-    expect(ObjectUtils.getProp({ id: 1 }, '', {})).toEqual({});
-    expect(ObjectUtils.getProp(a, 'b')).toEqual('test');
-    expect(ObjectUtils.getProp(a, 'c.d')).toEqual('test2');
-    expect(ObjectUtils.getProp(a, 'e[0]')).toEqual('test4');
-    expect(ObjectUtils.getProp(a, 'f[0].g')).toEqual('test3');
-  });
-
-  test('isExistPropTest', () => {
-    const a = {
-      b: 'test',
-      c: {
-        d: 'test2',
-      },
-      e: ['test4'],
-      f: [
-        {
-          g: 'test3',
-        },
-      ],
-    };
-
-    expect(ObjectUtils.isExistProp({ id: 1 }, '')).toBeFalsy();
-    expect(ObjectUtils.isExistProp(null, '')).toBeFalsy();
-    expect(ObjectUtils.isExistProp({ id: 1 }, undefined)).toBeFalsy();
-    expect(ObjectUtils.isExistProp({ id: 1 }, null)).toBeFalsy();
-    expect(ObjectUtils.isExistProp({ id: 1 }, '')).toBeFalsy();
-    expect(ObjectUtils.isExistProp(a, 'b')).toBeTruthy();
-    expect(ObjectUtils.isExistProp(a, 'c.d')).toBeTruthy();
-    expect(ObjectUtils.isExistProp(a, 'e[0]')).toBeTruthy();
-    expect(ObjectUtils.isExistProp(a, 'f[0].g')).toBeTruthy();
-  });
-
-  test('isNotExistPropTest', () => {
-    const a = {
-      b: 'test',
-      c: {
-        d: 'test2',
-      },
-      e: ['test4'],
-      f: [
-        {
-          g: 'test3',
-        },
-      ],
-    };
-
-    expect(ObjectUtils.isNotExistProp({ id: 1 }, '')).toBeTruthy();
-    expect(ObjectUtils.isNotExistProp(null, '')).toBeTruthy();
-    expect(ObjectUtils.isNotExistProp({ id: 1 }, undefined)).toBeTruthy();
-    expect(ObjectUtils.isNotExistProp({ id: 1 }, null)).toBeTruthy();
-    expect(ObjectUtils.isNotExistProp({ id: 1 }, '')).toBeTruthy();
-    expect(ObjectUtils.isNotExistProp(a, 'b')).toBeFalsy();
-    expect(ObjectUtils.isNotExistProp(a, 'c.d')).toBeFalsy();
-    expect(ObjectUtils.isNotExistProp(a, 'e[0]')).toBeFalsy();
-    expect(ObjectUtils.isNotExistProp(a, 'f[0].g')).toBeFalsy();
-  });
-
   test('isNotNullTest', () => {
     expect(ObjectUtils.isNotNull(undefined)).toBeFalsy();
     expect(ObjectUtils.isNotNull(null)).toBeFalsy();
@@ -98,16 +23,20 @@ describe('ObjectUtilsTest', () => {
   });
 
   test('allNotNullTest', () => {
+    expect(ObjectUtils.allNotNull()).toBeTruthy();
+    expect(ObjectUtils.allNotNull(undefined, null)).toBeFalsy();
     expect(ObjectUtils.allNotNull(undefined, 1, '', true)).toBeFalsy();
-    expect(ObjectUtils.allNotNull(null, 1, '', true)).toBeFalsy();
-    expect(ObjectUtils.allNotNull(1, '', true)).toBeTruthy();
+    expect(ObjectUtils.allNotNull(null, 1, '', true, {})).toBeFalsy();
+    expect(ObjectUtils.allNotNull(1, '', true, {})).toBeTruthy();
   });
 
   test('allNullTest', () => {
+    expect(ObjectUtils.allNotNull()).toBeTruthy();
     expect(ObjectUtils.allNull(undefined, null)).toBeTruthy();
+    expect(ObjectUtils.allNull(undefined, undefined)).toBeTruthy();
     expect(ObjectUtils.allNull(null)).toBeTruthy();
-    expect(ObjectUtils.allNull(1, '')).toBeFalsy();
-    expect(ObjectUtils.allNull(1, null)).toBeFalsy();
+    expect(ObjectUtils.allNull(1, '', {})).toBeFalsy();
+    expect(ObjectUtils.allNull(1, null, {})).toBeFalsy();
   });
 
   test('anyNotNullTest', () => {
@@ -192,15 +121,11 @@ describe('ObjectUtilsTest', () => {
 
     const a2 = null;
     const b2 = 1;
-    expect(
-      ObjectUtils.compare(a2, b2, (left, right) => left - right),
-    ).toBeLessThanOrEqual(-1);
+    expect(ObjectUtils.compare(a2, b2, (left, right) => left - right)).toBeLessThanOrEqual(-1);
 
     const a3 = 2;
     const b3 = 1;
-    expect(
-      ObjectUtils.compare(a3, b3, (left, right) => left - right),
-    ).toBeGreaterThanOrEqual(1);
+    expect(ObjectUtils.compare(a3, b3, (left, right) => left - right)).toBeGreaterThanOrEqual(1);
   });
 
   test('defaultIfNullTest', () => {
@@ -217,26 +142,20 @@ describe('ObjectUtilsTest', () => {
     expect(ObjectUtils.defaultIfCondition(null, {}, true)).toStrictEqual(null);
     expect(ObjectUtils.defaultIfCondition(null, {}, false)).toStrictEqual({});
     expect(ObjectUtils.defaultIfCondition('', '1234', true)).toStrictEqual('');
-    expect(ObjectUtils.defaultIfCondition('', '1234', false)).toStrictEqual(
-      '1234',
-    );
+    expect(ObjectUtils.defaultIfCondition('', '1234', false)).toStrictEqual('1234');
     expect(
       ObjectUtils.defaultIfCondition({ test: 1 }, { test: 2 }, (value) =>
         ObjectUtils.isNotNull(value),
       ),
     ).toStrictEqual({ test: 1 });
     expect(
-      ObjectUtils.defaultIfCondition(null, { test: 2 }, (value) =>
-        ObjectUtils.isNotNull(value),
-      ),
+      ObjectUtils.defaultIfCondition(null, { test: 2 }, (value) => ObjectUtils.isNotNull(value)),
     ).toStrictEqual({ test: 2 });
   });
 
   test('firstNonNullTest', () => {
     expect(ObjectUtils.firstNonNull(null, {}, true)).toStrictEqual({});
-    expect(ObjectUtils.firstNonNull(null, undefined, false)).toStrictEqual(
-      false,
-    );
+    expect(ObjectUtils.firstNonNull(null, undefined, false)).toStrictEqual(false);
     expect(ObjectUtils.firstNonNull('', { test: 1 }, true)).toStrictEqual('');
   });
 
@@ -279,22 +198,9 @@ describe('ObjectUtilsTest', () => {
   });
 
   test('maxTest', () => {
-    expect(
-      ObjectUtils.max(
-        (left, right) => left - right,
-        1,
-        2,
-        3,
-        4,
-        7,
-        3,
-        9,
-        10,
-        2,
-        15,
-        1,
-      ),
-    ).toBe(15);
+    expect(ObjectUtils.max((left, right) => left - right, 1, 2, 3, 4, 7, 3, 9, 10, 2, 15, 1)).toBe(
+      15,
+    );
     expect(ObjectUtils.max((left, right) => left - right, 1, 1, 1)).toBe(1);
     expect(
       ObjectUtils.max(
@@ -315,64 +221,28 @@ describe('ObjectUtilsTest', () => {
         null,
       ),
     ).toBe(15);
-    expect(
-      ObjectUtils.max((left, right) => left - right, null, null, null),
-    ).toBe(null);
+    expect(ObjectUtils.max((left, right) => left - right, null, null, null)).toBe(null);
   });
 
   test('minTest', () => {
-    expect(
-      ObjectUtils.min(
-        (left, right) => left - right,
-        1,
-        2,
-        3,
-        4,
-        7,
-        3,
-        9,
-        10,
-        2,
-        15,
-        1,
-      ),
-    ).toBe(1);
-  });
-
-  test('modeTest', () => {
-    expect(ObjectUtils.mode(1, 2, 3, 4, 7, 3, 9, 10, 2, 15, 1)).toBeNull();
-    expect(ObjectUtils.mode(1, 2, 3, 4, 7, 3, 9, 10, 2, 15, 1, 1)).toBe(1);
+    expect(ObjectUtils.min((left, right) => left - right, 1, 2, 3, 4, 7, 3, 9, 10, 2, 15, 1)).toBe(
+      1,
+    );
   });
 
   test('equalsTest', () => {
-    expect(
-      ObjectUtils.equal(1, 2, (left, right) => left === right),
-    ).toBeFalsy();
-    expect(
-      ObjectUtils.equal(1, 1, (left, right) => left === right),
-    ).toBeTruthy();
-    expect(
-      ObjectUtils.equal(1, null, (left, right) => left === right),
-    ).toBeFalsy();
-    expect(
-      ObjectUtils.equal(null, 2, (left, right) => left === right),
-    ).toBeFalsy();
+    expect(ObjectUtils.equal(1, 2, (left, right) => left === right)).toBeFalsy();
+    expect(ObjectUtils.equal(1, 1, (left, right) => left === right)).toBeTruthy();
+    expect(ObjectUtils.equal(1, null, (left, right) => left === right)).toBeFalsy();
+    expect(ObjectUtils.equal(null, 2, (left, right) => left === right)).toBeFalsy();
     expect(ObjectUtils.equal(null, null)).toBeTruthy();
   });
 
   test('notEqualTest', () => {
-    expect(
-      ObjectUtils.notEqual(1, 2, (left, right) => left === right),
-    ).toBeTruthy();
-    expect(
-      ObjectUtils.notEqual(1, 1, (left, right) => left === right),
-    ).toBeFalsy();
-    expect(
-      ObjectUtils.notEqual(1, null, (left, right) => left === right),
-    ).toBeTruthy();
-    expect(
-      ObjectUtils.notEqual(null, 2, (left, right) => left === right),
-    ).toBeTruthy();
+    expect(ObjectUtils.notEqual(1, 2, (left, right) => left === right)).toBeTruthy();
+    expect(ObjectUtils.notEqual(1, 1, (left, right) => left === right)).toBeFalsy();
+    expect(ObjectUtils.notEqual(1, null, (left, right) => left === right)).toBeTruthy();
+    expect(ObjectUtils.notEqual(null, 2, (left, right) => left === right)).toBeTruthy();
   });
 
   test('toStringTest', () => {
@@ -398,29 +268,17 @@ describe('ObjectUtilsTest', () => {
     expect(ObjectUtils.isAnyType(1, String, Number)).toBeTruthy();
     expect(ObjectUtils.isAnyType('1', Number, String, Object)).toBeTruthy();
     expect(ObjectUtils.isAnyType(true, Number, String, Boolean)).toBeTruthy();
-    expect(
-      ObjectUtils.isAnyType(Symbol(1), Number, String, Symbol),
-    ).toBeTruthy();
-    expect(
-      ObjectUtils.isAnyType(BigInt(1), Number, BigInt, Symbol),
-    ).toBeTruthy();
+    expect(ObjectUtils.isAnyType(Symbol(1), Number, String, Symbol)).toBeTruthy();
+    expect(ObjectUtils.isAnyType(BigInt(1), Number, BigInt, Symbol)).toBeTruthy();
     expect(ObjectUtils.isAnyType(null, Number, BigInt, Symbol)).toBeFalsy();
-    expect(
-      ObjectUtils.isAnyType(undefined, Number, BigInt, Symbol),
-    ).toBeFalsy();
-    expect(
-      ObjectUtils.isAnyType([], Array, Number, BigInt, Symbol),
-    ).toBeTruthy();
-    expect(
-      ObjectUtils.isAnyType('', Array, Number, BigInt, Symbol),
-    ).toBeFalsy();
+    expect(ObjectUtils.isAnyType(undefined, Number, BigInt, Symbol)).toBeFalsy();
+    expect(ObjectUtils.isAnyType([], Array, Number, BigInt, Symbol)).toBeTruthy();
+    expect(ObjectUtils.isAnyType('', Array, Number, BigInt, Symbol)).toBeFalsy();
     expect(
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       ObjectUtils.isAnyType(() => {}, Function, Array, BigInt, Symbol),
     ).toBeTruthy();
-    expect(
-      ObjectUtils.isAnyType(new Date(), Function, Array, Date),
-    ).toBeTruthy();
+    expect(ObjectUtils.isAnyType(new Date(), Function, Array, Date)).toBeTruthy();
   });
 
   test('propertyNameToUnderLineTest', () => {

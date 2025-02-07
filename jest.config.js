@@ -1,15 +1,10 @@
 export default {
-  preset: 'ts-jest',
   testEnvironment: 'jsdom',
   transform: {
-    '^.+\\.ts$': [
-      'ts-jest',
-      {
-        useESM: true,
-      },
-    ],
+    '^.+\\.js$': ['babel-jest'],
   },
+  moduleFileExtensions: ['js', 'json'],
   moduleNameMapper: {
-    '^src/(.*)': '<rootDir>/src/$1',
+    '^/(.*)': '<rootDir>/dist/$1',
   },
 };
