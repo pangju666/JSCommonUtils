@@ -24,4 +24,3 @@ pnpm-debug.log*
 .husky
 npm-lock.json
 pnpm-lock.yaml
-.eslintrc.js

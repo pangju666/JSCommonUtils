@@ -127,16 +127,6 @@ describe('ObjectUtilsTest', () => {
     expect(ObjectUtils.compare(a3, b3, (left, right) => left - right)).toBeGreaterThanOrEqual(1);
   });
 
-  test('defaultIfNullTest', () => {
-    expect(ObjectUtils.defaultIfNull(null, {})).toStrictEqual({});
-    expect(ObjectUtils.defaultIfNull(null, { test: 2 })).toStrictEqual({
-      test: 2,
-    });
-    expect(ObjectUtils.defaultIfNull({ test: 1 }, { test: 2 })).toStrictEqual({
-      test: 1,
-    });
-  });
-
   test('defaultIfConditionTest', () => {
     expect(ObjectUtils.defaultIfCondition(null, {}, true)).toStrictEqual(null);
     expect(ObjectUtils.defaultIfCondition(null, {}, false)).toStrictEqual({});

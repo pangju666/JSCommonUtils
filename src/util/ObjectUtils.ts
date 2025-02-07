@@ -10,8 +10,6 @@ import { Comparator, Converter, Equalizer, Predicate } from '../function/Functio
  * @since 1.0
  */
 export class ObjectUtils {
-  //TODO(idea): ObjectUtils 将一个对象去除部分属性，返回新对象（浅拷贝）
-
   /**
    * 将对象属性名称从驼峰格式转为下划线（_）格式
    *
@@ -407,6 +405,9 @@ export class ObjectUtils {
    * @returns {} 隆出的新对象，如果 source 为 null、undefined 则返回 null
    */
   public static deepClone(value: unknown): unknown {
+    if (typeof structuredClone === 'function') {
+      return structuredClone(value);
+    }
     return this.deepCloneImpl(value, new WeakSet());
   }
 
@@ -432,25 +433,6 @@ export class ObjectUtils {
       return nullGreater ? -1 : 1;
     }
     return compareTo(c1, c2);
-  }
-
-  /**
-   * 如果传递的值为 null 或 undefined，则返回默认值。
-   *
-   * @example
-   * ```js
-   * ObjectUtils.defaultIfNull(null, {}); // {}
-   * ObjectUtils.defaultIfNull("", {}); // ""
-   * ObjectUtils.defaultIfNull({test: 1}, {test: 2}); // {test: 1}
-   * ```
-   *
-   * @typeParam T -待传递值类型
-   * @param value 待传递的值
-   * @param defaultValue 默认值
-   * @returns {} 如果不为 null 或 undefined 则返回 value，否则返回 defaultValue
-   */
-  public static defaultIfNull<T>(value: T, defaultValue: T): T {
-    return value ?? defaultValue;
   }
 
   /**
@@ -497,7 +479,7 @@ export class ObjectUtils {
    * @returns {} 给定参数中第一个不是 null 或 undefined 的值。
    * 如果所有值都为 null、undefined，则返回 null
    */
-  public static firstNonNull(...values: unknown[]): unknown {
+  public static firstNotNull(...values: unknown[]): unknown {
     if (this.isNull(values)) {
       return null;
     }
