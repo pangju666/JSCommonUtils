@@ -1,5 +1,5 @@
 import { ObjectUtils } from './ObjectUtils';
-import { Comparator, Predicate } from '../type/FunctionAlias';
+import { Comparator, Predicate } from '../function/Functions';
 
 /**
  * 比较工具类
@@ -20,8 +20,7 @@ export class ComparableUtils {
    */
   public static between<T>(b: T, c: T, compareTo: Comparator<T>): Predicate<T> {
     return (a) =>
-      this.betweenOrdered(a, b, c, compareTo) ||
-      this.betweenOrdered(a, c, b, compareTo);
+      this.betweenOrdered(a, b, c, compareTo) || this.betweenOrdered(a, c, b, compareTo);
   }
 
   /**
@@ -32,11 +31,7 @@ export class ComparableUtils {
    * @param compareTo 比较规则
    * @returns 如果测试对象在 b 和 c 之间并且不等于那些，则为 true 的谓词
    */
-  public static betweenExclusive<T>(
-    b: T,
-    c: T,
-    compareTo: Comparator<T>,
-  ): Predicate<T> {
+  public static betweenExclusive<T>(b: T, c: T, compareTo: Comparator<T>): Predicate<T> {
     return (a) =>
       this.betweenOrderedExclusive(a, b, c, compareTo) ||
       this.betweenOrderedExclusive(a, c, b, compareTo);
@@ -97,24 +92,11 @@ export class ComparableUtils {
     return (a) => this.lessThanOrEqualTo(a, b, compareTo);
   }
 
-  private static betweenOrdered<T>(
-    a: T,
-    b: T,
-    c: T,
-    compareTo: Comparator<T>,
-  ): boolean {
-    return (
-      this.greaterThanOrEqualTo(a, b, compareTo) &&
-      this.lessThanOrEqualTo(a, c, compareTo)
-    );
+  private static betweenOrdered<T>(a: T, b: T, c: T, compareTo: Comparator<T>): boolean {
+    return this.greaterThanOrEqualTo(a, b, compareTo) && this.lessThanOrEqualTo(a, c, compareTo);
   }
 
-  private static betweenOrderedExclusive<T>(
-    a: T,
-    b: T,
-    c: T,
-    compareTo: Comparator<T>,
-  ): boolean {
+  private static betweenOrderedExclusive<T>(a: T, b: T, c: T, compareTo: Comparator<T>): boolean {
     return this.greaterThan(a, b, compareTo) && this.lessThan(a, c, compareTo);
   }
 
@@ -122,11 +104,7 @@ export class ComparableUtils {
     return ObjectUtils.compare(a, b, compareTo) > 0;
   }
 
-  private static greaterThanOrEqualTo<T>(
-    a: T,
-    b: T,
-    compareTo: Comparator<T>,
-  ): boolean {
+  private static greaterThanOrEqualTo<T>(a: T, b: T, compareTo: Comparator<T>): boolean {
     return ObjectUtils.compare(a, b, compareTo) >= 0;
   }
 
@@ -134,11 +112,7 @@ export class ComparableUtils {
     return ObjectUtils.compare(a, b, compareTo) < 0;
   }
 
-  private static lessThanOrEqualTo<T>(
-    a: T,
-    b: T,
-    compareTo: Comparator<T>,
-  ): boolean {
+  private static lessThanOrEqualTo<T>(a: T, b: T, compareTo: Comparator<T>): boolean {
     return ObjectUtils.compare(a, b, compareTo) <= 0;
   }
 

@@ -1,9 +1,6 @@
 import { ObjectUtils } from './ObjectUtils';
-import {
-  IllegalArgumentError,
-  IndexOutOfBoundsError,
-} from '../error/runtimeError';
-import { ArrayPredicate, Comparator, ToString } from '../type/FunctionAlias';
+import { IllegalArgumentError, IndexOutOfBoundsError } from '../error/runtimeError';
+import { ArrayPredicate, Comparator, ToString } from '../function/Functions';
 import { RandomUtils } from './RandomUtils';
 
 /**
@@ -124,9 +121,7 @@ export class ArrayUtils {
    * @throws {IllegalArgumentError} 如果两个参数都为 null 或 undefined
    */
   public static addFirst<T>(array: T[], element: T): T[] {
-    return ObjectUtils.isNull(array)
-      ? this.add(array, element)
-      : this.insert(0, array, element);
+    return ObjectUtils.isNull(array) ? this.add(array, element) : this.insert(0, array, element);
   }
 
   /**
@@ -172,10 +167,7 @@ export class ArrayUtils {
    * @param search 要搜索的元素或谓词（{@link ArrayPredicate}），函数数组必须使用谓词方式
    * @return 如果数组包含元素则返回 true
    */
-  public static contains<T>(
-    array: T[],
-    search: ArrayPredicate<T> | T,
-  ): boolean {
+  public static contains<T>(array: T[], search: ArrayPredicate<T> | T): boolean {
     return this.indexOf(array, search) !== -1;
   }
 
@@ -230,11 +222,7 @@ export class ArrayUtils {
    * @param startIndex 开始搜索的索引
    * @return 数组中值的所有索引的数组，如果未找到或输入为 null、undefined 数组则返回空数组
    */
-  public static indexesOf<T>(
-    array: T[],
-    search: ArrayPredicate<T> | T,
-    startIndex = 0,
-  ): number[] {
+  public static indexesOf<T>(array: T[], search: ArrayPredicate<T> | T, startIndex = 0): number[] {
     const indexes = [];
 
     if (ObjectUtils.isNull(array)) {
@@ -277,11 +265,7 @@ export class ArrayUtils {
    * @param startIndex 开始搜索的索引
    * @return 数组中值的索引，如果未找到或 null、undefined 数组输入则为 {@link INDEX_NOT_FOUND}
    */
-  public static indexOf<T>(
-    array: T[],
-    search: ArrayPredicate<T> | T,
-    startIndex = 0,
-  ): number {
+  public static indexOf<T>(array: T[], search: ArrayPredicate<T> | T, startIndex = 0): number {
     if (ObjectUtils.isNull(array)) {
       return this.INDEX_NOT_FOUND;
     }
@@ -328,9 +312,7 @@ export class ArrayUtils {
       return [...array];
     }
     if (index < 0 || index > array.length) {
-      throw new IndexOutOfBoundsError(
-        '索引: ' + index + ', 长度: ' + array.length,
-      );
+      throw new IndexOutOfBoundsError('索引: ' + index + ', 长度: ' + array.length);
     }
 
     const newArray = [];
@@ -400,9 +382,7 @@ export class ArrayUtils {
    */
   public static isSorted<T>(array: T[], comparator: Comparator<T>): boolean {
     if (ObjectUtils.isNull(comparator)) {
-      throw new IllegalArgumentError(
-        '元素比较函数不应该为 null 或 undefined。',
-      );
+      throw new IllegalArgumentError('元素比较函数不应该为 null 或 undefined。');
     }
 
     if (ObjectUtils.isNull(array) || array.length < 2) {
@@ -535,9 +515,7 @@ export class ArrayUtils {
       while (--i >= 0) {
         const index = clonedIndices[i];
         if (index < 0 || index >= length) {
-          throw new IndexOutOfBoundsError(
-            '索引: ' + index + ', 长度: ' + length,
-          );
+          throw new IndexOutOfBoundsError('索引: ' + index + ', 长度: ' + length);
         }
         if (index >= prevIndex) {
           continue;
@@ -582,10 +560,7 @@ export class ArrayUtils {
    * @param search 要移除的元素或谓词（{@link ArrayPredicate}），函数数组必须使用谓词方式
    * @return {} 一个新数组，包含除指定元素的出现之外的现有元素。
    */
-  public static removeAllOccurrences<T>(
-    array: T[],
-    search: ArrayPredicate<T> | T,
-  ): T[] {
+  public static removeAllOccurrences<T>(array: T[], search: ArrayPredicate<T> | T): T[] {
     return this.removeAll(array, ...this.indexesOf(array, search));
   }
 
@@ -610,10 +585,7 @@ export class ArrayUtils {
    * @param search 要移除的元素或谓词（{@link ArrayPredicate}），函数数组必须使用谓词方式
    * @return {} 一个新数组，包含除第一次出现的指定元素之外的现有元素。
    */
-  public static removeElement<T>(
-    array: T[],
-    search: ArrayPredicate<T> | T,
-  ): T[] {
+  public static removeElement<T>(array: T[], search: ArrayPredicate<T> | T): T[] {
     const index = this.indexOf(array, search);
     if (index === this.INDEX_NOT_FOUND) {
       return this.clone(array);
@@ -763,30 +735,15 @@ export class ArrayUtils {
       const n_offset = n - offset;
 
       if (offset > n_offset) {
-        this.swap(
-          array,
-          startIndexInclusive,
-          startIndexInclusive + n - n_offset,
-          n_offset,
-        );
+        this.swap(array, startIndexInclusive, startIndexInclusive + n - n_offset, n_offset);
         n = offset;
         offset -= n_offset;
       } else if (offset < n_offset) {
-        this.swap(
-          array,
-          startIndexInclusive,
-          startIndexInclusive + n_offset,
-          offset,
-        );
+        this.swap(array, startIndexInclusive, startIndexInclusive + n_offset, offset);
         startIndexInclusive += offset;
         n = n_offset;
       } else {
-        this.swap(
-          array,
-          startIndexInclusive,
-          startIndexInclusive + n_offset,
-          offset,
-        );
+        this.swap(array, startIndexInclusive, startIndexInclusive + n_offset, offset);
         break;
       }
     }
@@ -862,17 +819,8 @@ export class ArrayUtils {
    * @param offset2 要交换的系列中第二个元素的索引
    * @param length 从给定索引开始交换的元素数
    */
-  public static swap<T>(
-    array: T[],
-    offset1: number,
-    offset2: number,
-    length = 1,
-  ): void {
-    if (
-      this.isEmpty(array) ||
-      offset1 >= array.length ||
-      offset2 >= array.length
-    ) {
+  public static swap<T>(array: T[], offset1: number, offset2: number, length = 1): void {
+    if (this.isEmpty(array) || offset1 >= array.length || offset2 >= array.length) {
       return;
     }
 
@@ -883,10 +831,7 @@ export class ArrayUtils {
       offset2 = 0;
     }
 
-    length = Math.min(
-      Math.min(length, array.length - offset1),
-      array.length - offset2,
-    );
+    length = Math.min(Math.min(length, array.length - offset1), array.length - offset2);
     for (let i = 0; i < length; i++, offset1++, offset2++) {
       const tmp = array[offset1];
       array[offset1] = array[offset2];
@@ -918,15 +863,9 @@ export class ArrayUtils {
     const result = [];
     for (let i = 0; i < array.length; i++) {
       if (ObjectUtils.isNull(elementToStringFunc)) {
-        result[i] = ObjectUtils.defaultIfNull(
-          array[i].toString(),
-          valueForNullElements,
-        );
+        result[i] = ObjectUtils.defaultIfNull(array[i].toString(), valueForNullElements);
       } else {
-        result[i] = ObjectUtils.defaultIfNull(
-          elementToStringFunc(array[i]),
-          valueForNullElements,
-        );
+        result[i] = ObjectUtils.defaultIfNull(elementToStringFunc(array[i]), valueForNullElements);
       }
     }
 

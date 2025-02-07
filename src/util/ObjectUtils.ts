@@ -1,10 +1,5 @@
 import { IllegalArgumentError, NullError } from '../error/runtimeError';
-import {
-  Comparator,
-  Converter,
-  Equalizer,
-  Predicate,
-} from '../type/FunctionAlias';
+import { Comparator, Converter, Equalizer, Predicate } from '../function/Functions';
 
 /**
  * 对象工具类
@@ -149,10 +144,7 @@ export class ObjectUtils {
    * @param converter 属性名转换器，用于定义如何转换属性名称
    * @returns {} 此方法会对值进行深拷贝操作，因为会返回一个新的对象，不会影响原始值
    */
-  public static convertPropertyNames(
-    obj: unknown,
-    converter: Converter<string>,
-  ): unknown {
+  public static convertPropertyNames(obj: unknown, converter: Converter<string>): unknown {
     if (this.isNull(obj)) {
       return null;
     }
@@ -219,11 +211,7 @@ export class ObjectUtils {
    * @throws {@link TypeError} 如果 key 不为 {@link String} 类型
    * @returns {} value 中 key 指向的属性
    */
-  public static getProp(
-    value: unknown,
-    key: string,
-    defaultValue = null,
-  ): unknown {
+  public static getProp(value: unknown, key: string, defaultValue = null): unknown {
     if (this.isNotNull(key) && typeof key !== 'string') {
       throw new TypeError('key 必须为字符串类型');
     }
@@ -480,10 +468,7 @@ export class ObjectUtils {
     if (this.isBasicType(source)) {
       return source;
     }
-    return Object.create(
-      Object.getPrototypeOf(source),
-      Object.getOwnPropertyDescriptors(source),
-    );
+    return Object.create(Object.getPrototypeOf(source), Object.getOwnPropertyDescriptors(source));
   }
 
   /**
@@ -507,12 +492,7 @@ export class ObjectUtils {
    * 或者如果为 false，则 null、undefined 被认为小于非 null、undefined 值
    * @returns {} 如果 c1 < c2 则为负值，如果 c1 = c2 则为零，如果 c1 > c2 则为正值
    */
-  public static compare<T>(
-    c1: T,
-    c2: T,
-    compareTo: Comparator<T>,
-    nullGreater = false,
-  ): number {
+  public static compare<T>(c1: T, c2: T, compareTo: Comparator<T>, nullGreater = false): number {
     if (this.isNull(c1)) {
       if (this.isNull(c2)) {
         return 0;
@@ -735,47 +715,6 @@ export class ObjectUtils {
   }
 
   /**
-   * 找出最常出现的变量
-   *
-   * @example
-   * ```js
-   * ObjectUtils.mode(1, 2, 2, 1); // 1
-   * ObjectUtils.mode(1, 2, 2, 1, 2); // 2
-   * ```
-   *
-   * @param values 待检查的一组变量
-   * @returns {} 出现次数最最多的项，如果不唯一或待检查的变量为 null 或 undefined，则返回 null
-   */
-  public static mode(...values: unknown[]): unknown {
-    if (this.isEmpty(values)) {
-      return null;
-    }
-
-    const occurrences = new Map();
-    for (const value of values) {
-      const count = occurrences.get(value);
-      if (count === undefined) {
-        occurrences.set(value, 1);
-      } else {
-        occurrences.set(value, count + 1);
-      }
-    }
-
-    let result = null;
-    let max = 0;
-    occurrences.forEach((value, key) => {
-      const cmp = value;
-      if (cmp === max) {
-        result = null;
-      } else if (cmp > max) {
-        max = cmp;
-        result = key;
-      }
-    });
-    return result;
-  }
-
-  /**
    * 判断两个值是否相等。<br />
    * 任意一个参数为 null、undefined 则返回 false，若都为 null、undefined 则返回 true。 <br />
    * 若 equalizer 为 null 或 undefined且两个值都不为 null、undefined 则调用{@link Object.is}进行判断
@@ -786,11 +725,7 @@ export class ObjectUtils {
    * @param equalizer 值相等判断函数
    * @returns {} 符合相等判断规则，则为 true，否则为 false
    */
-  public static equal<T>(
-    value1: T,
-    value2: T,
-    equalizer?: Equalizer<T>,
-  ): boolean {
+  public static equal<T>(value1: T, value2: T, equalizer?: Equalizer<T>): boolean {
     if (this.isNull(value1)) {
       return this.isNull(value2);
     }
@@ -811,11 +746,7 @@ export class ObjectUtils {
    * @param equalizer 值相等判断函数
    * @returns {} 符合相等判断规则，则为 false，否则为 true
    */
-  public static notEqual<T>(
-    value1: T,
-    value2: T,
-    equalizer?: Equalizer<T>,
-  ): boolean {
+  public static notEqual<T>(value1: T, value2: T, equalizer?: Equalizer<T>): boolean {
     return !this.equal(value1, value2, equalizer);
   }
 
@@ -958,11 +889,7 @@ export class ObjectUtils {
 
   private static deepCloneImpl(value: unknown, hash = new WeakSet()): unknown {
     // 非 object 类型或 ERROR 对象，无法深度拷贝，直接返回原值
-    if (
-      this.isNull(value) ||
-      value instanceof Error ||
-      typeof value !== 'object'
-    ) {
+    if (this.isNull(value) || value instanceof Error || typeof value !== 'object') {
       return value;
     }
     // dom节点，无法深度拷贝，直接返回原值
@@ -983,16 +910,10 @@ export class ObjectUtils {
     const newValue = {};
     for (const key of Object.keys(value)) {
       const currentValue = value[key];
-      if (
-        this.isNull(currentValue) ||
-        value instanceof Error ||
-        typeof currentValue !== 'object'
-      ) {
+      if (this.isNull(currentValue) || value instanceof Error || typeof currentValue !== 'object') {
         newValue[key] = currentValue;
       } else if (Array.isArray(currentValue)) {
-        newValue[key] = currentValue.map((item) =>
-          this.deepCloneImpl(item, hash),
-        );
+        newValue[key] = currentValue.map((item) => this.deepCloneImpl(item, hash));
       } else if (currentValue instanceof Set) {
         const newSet = new Set();
         currentValue.forEach((item) => {

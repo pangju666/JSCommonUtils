@@ -1,11 +1,8 @@
 import { ObjectUtils } from './ObjectUtils';
 import { BooleanUtils } from './BooleanUtils';
 import { ArrayUtils } from './ArrayUtils';
-import {
-  IllegalArgumentError,
-  IndexOutOfBoundsError,
-} from '../error/runtimeError';
-import { Supplier } from '../type/FunctionAlias';
+import { IllegalArgumentError, IndexOutOfBoundsError } from '../error/runtimeError';
+import { Supplier } from '../function/Functions';
 
 /**
  * 字符串工具类
@@ -109,11 +106,7 @@ export class StringUtils {
    * @return 缩写字符串，如果为空字符串输入则返回 null
    * @throws {@link IllegalArgumentError} 如果 maxWidth 太小
    */
-  public static abbreviate(
-    str: string,
-    offset: number,
-    maxWidth: number,
-  ): string;
+  public static abbreviate(str: string, offset: number, maxWidth: number): string;
   /**
    * <p>使用另一个给定的字符串作为替换标记来缩写字符串。
    * 如果“...”被定义为替换标记，这会将“现在是所有好人的时候”变成“现在是...的时候了”。</p>
@@ -145,11 +138,7 @@ export class StringUtils {
    * @return 缩写字符串，如果为空字符串输入则返回 null
    * @throws {@link IllegalArgumentError} 如果 maxWidth 太小
    */
-  public static abbreviate(
-    str: string,
-    abbrevMarker: string,
-    maxWidth: number,
-  ): string;
+  public static abbreviate(str: string, abbrevMarker: string, maxWidth: number): string;
   /**
    * <p>使用给定的替换标记缩写字符串。
    * 如果“...”被定义为替换标记，这会将“现在是所有好人的时候”变成“......是时候......”。</p>
@@ -231,9 +220,7 @@ export class StringUtils {
       return str.substring(0, maxWidth - abbrevMarkerLength) + abbrevMarker;
     }
     if (maxWidth < minAbbrevWidthOffset) {
-      throw new IllegalArgumentError(
-        '带偏移的最小缩写宽度为 ' + minAbbrevWidthOffset,
-      );
+      throw new IllegalArgumentError('带偏移的最小缩写宽度为 ' + minAbbrevWidthOffset);
     }
     if (offset + maxWidth - abbrevMarkerLength < strLen) {
       return (
@@ -245,9 +232,7 @@ export class StringUtils {
         )
       );
     }
-    return (
-      abbrevMarker + str.substring(strLen - (maxWidth - abbrevMarkerLength))
-    );
+    return abbrevMarker + str.substring(strLen - (maxWidth - abbrevMarkerLength));
   }
 
   /**
@@ -276,16 +261,8 @@ export class StringUtils {
    * @param length str 的缩写长度。
    * @return {} 如果满足上述条件，则为缩写字符串，或为缩写提供的原始字符串。
    */
-  public static abbreviateMiddle(
-    str: string,
-    middle: string,
-    length: number,
-  ): string {
-    if (
-      this.isAnyEmpty(str, middle) ||
-      length >= str.length ||
-      length < middle.length + 2
-    ) {
+  public static abbreviateMiddle(str: string, middle: string, length: number): string {
+    if (this.isAnyEmpty(str, middle) || length >= str.length || length < middle.length + 2) {
       return str;
     }
 
@@ -327,16 +304,8 @@ export class StringUtils {
    * @param suffixes 作为有效终止符的附加后缀。
    * @return {} 如果附加了后缀，则为新字符串，否则为相同的字符串。
    */
-  public static appendIfMissing(
-    str: string,
-    suffix: string,
-    ...suffixes: string[]
-  ): string {
-    if (
-      ObjectUtils.isNull(str) ||
-      this.isEmpty(suffix) ||
-      this.endsWith(str, suffix, false)
-    ) {
+  public static appendIfMissing(str: string, suffix: string, ...suffixes: string[]): string {
+    if (ObjectUtils.isNull(str) || this.isEmpty(suffix) || this.endsWith(str, suffix, false)) {
       return str;
     }
     if (ArrayUtils.isNotEmpty(suffixes)) {
@@ -384,11 +353,7 @@ export class StringUtils {
     suffix: string,
     ...suffixes: string[]
   ): string {
-    if (
-      ObjectUtils.isNull(str) ||
-      this.isEmpty(suffix) ||
-      this.endsWith(str, suffix, true)
-    ) {
+    if (ObjectUtils.isNull(str) || this.isEmpty(suffix) || this.endsWith(str, suffix, true)) {
       return str;
     }
     if (ArrayUtils.isNotEmpty(suffixes)) {
@@ -590,11 +555,7 @@ export class StringUtils {
    * @return {} < 0, 0, > 0，如果 str1 分别小于、等于或大于 str2
    @see compare
    */
-  public static compareToIgnoreCase(
-    str1: string,
-    str2: string,
-    nullIsLess = true,
-  ): number {
+  public static compareToIgnoreCase(str1: string, str2: string, nullIsLess = true): number {
     return this.compareStr(str1, str2, nullIsLess, true);
   }
 
@@ -673,10 +634,7 @@ export class StringUtils {
    * @param searchStrs 要搜索的字符串数组，可能为 null 或 undefined。单个字符串也可以为 null 或 undefined。
    * @return {boolean} 如果找到任何搜索数组中的元素，则为 true ，否则为 false
    */
-  public static containsAnyIgnoreCase(
-    str: string,
-    ...searchStrs: string[]
-  ): boolean {
+  public static containsAnyIgnoreCase(str: string, ...searchStrs: string[]): boolean {
     if (this.isEmpty(str) || ArrayUtils.isEmpty(searchStrs)) {
       return false;
     }
@@ -749,10 +707,7 @@ export class StringUtils {
           if (j === searchLast) {
             return false;
           }
-          if (
-            i < strLast &&
-            invalidString.charAt(j + 1) === str.charAt(i + 1)
-          ) {
+          if (i < strLast && invalidString.charAt(j + 1) === str.charAt(i + 1)) {
             return false;
           }
         }
@@ -1002,20 +957,14 @@ export class StringUtils {
    * @param ignoreCase 指示比较是否应忽略大小写（不区分大小写）。
    * @return 如果字符串以 suffix 结尾则返回 true，区分大小写，或两者都有 null、undefined
    */
-  public static endsWith(
-    str: string,
-    suffix: string,
-    ignoreCase = false,
-  ): boolean {
+  public static endsWith(str: string, suffix: string, ignoreCase = false): boolean {
     if (ObjectUtils.anyNull(str, suffix)) {
       return str === suffix;
     }
     if (suffix.length > str.length) {
       return false;
     }
-    return ignoreCase
-      ? str.toLowerCase().endsWith(suffix)
-      : str.endsWith(suffix);
+    return ignoreCase ? str.toLowerCase().endsWith(suffix) : str.endsWith(suffix);
   }
 
   /**
@@ -1093,11 +1042,7 @@ export class StringUtils {
    * @return 如果字符串相等则返回 true，或者两者都是 null 或 undefined
    * @see equalsIgnoreCase
    */
-  public static equals(
-    str1: string,
-    str2: string,
-    ignoreCase = false,
-  ): boolean {
+  public static equals(str1: string, str2: string, ignoreCase = false): boolean {
     if (ObjectUtils.allNull(str1, str2)) {
       return true;
     }
@@ -1107,9 +1052,7 @@ export class StringUtils {
     if (str1.length !== str2.length) {
       return false;
     }
-    return ignoreCase
-      ? str1.toUpperCase() === str2.toUpperCase()
-      : str1 === str2;
+    return ignoreCase ? str1.toUpperCase() === str2.toUpperCase() : str1 === str2;
   }
 
   /**
@@ -1155,10 +1098,7 @@ export class StringUtils {
    * @return 如果字符串与 searchStrings 的任何其他元素相等（不区分大小写）则返回true；
    * 如果 searchStrings为 null、undefined 或不包含匹配项则返回 false。
    */
-  public static equalsAnyIgnoreCase(
-    str: string,
-    ...searchStrings: string[]
-  ): boolean {
+  public static equalsAnyIgnoreCase(str: string, ...searchStrings: string[]): boolean {
     if (ArrayUtils.isNotEmpty(searchStrings)) {
       for (const next of searchStrings) {
         if (this.equalsIgnoreCase(str, next)) {
@@ -1319,10 +1259,7 @@ export class StringUtils {
    * @return {} 传入的字符串，或默认值
    * @see defaultString
    */
-  public static getIfBlank(
-    str: string,
-    defaultSupplier: Supplier<string>,
-  ): string {
+  public static getIfBlank(str: string, defaultSupplier: Supplier<string>): string {
     return this.isBlank(str)
       ? ObjectUtils.isNull(defaultSupplier)
         ? null
@@ -1349,10 +1286,7 @@ export class StringUtils {
    * @return {} 传入的字符串，或默认值
    * @see defaultString
    */
-  public static getIfEmpty(
-    str: string,
-    defaultSupplier: Supplier<string>,
-  ): string {
+  public static getIfEmpty(str: string, defaultSupplier: Supplier<string>): string {
     return this.isEmpty(str)
       ? ObjectUtils.isNull(defaultSupplier)
         ? null
@@ -1387,11 +1321,7 @@ export class StringUtils {
    * @param startPos 起始位置，负数视为零
    * @return 搜索字符串的第一个索引（总是 ≥ startPos），如果不匹配或 null、undefined 字符串输入，则为 -1
    */
-  public static indexOf(
-    str: string,
-    searchString: string,
-    startPos = 0,
-  ): number {
+  public static indexOf(str: string, searchString: string, startPos = 0): number {
     if (ObjectUtils.anyNull(str, searchString)) {
       return this.INDEX_NOT_FOUND;
     }
@@ -1591,11 +1521,7 @@ export class StringUtils {
    * @param startPos 起始位置，负数视为零
    * @return 搜索字符串的第一个索引（总是 ≥ startPos），如果不匹配或 null、undefined 字符串输入，则为 -1
    */
-  public static indexOfIgnoreCase(
-    str: string,
-    searchStr: string,
-    startPos = 0,
-  ): number {
+  public static indexOfIgnoreCase(str: string, searchStr: string, startPos = 0): number {
     if (ObjectUtils.anyNull(str, searchStr)) {
       return this.INDEX_NOT_FOUND;
     }
@@ -2157,11 +2083,7 @@ export class StringUtils {
    * @param startPos 起始位置，负数视为零
    * @return 搜索字符串的最后一个索引（总是 ≤ startPos），如果不匹配、null 或 undefined 字符串输入，则为 -1
    */
-  public static lastIndexOf(
-    str: string,
-    searchStr: string,
-    startPos = str.length,
-  ): number {
+  public static lastIndexOf(str: string, searchStr: string, startPos = str.length): number {
     if (ObjectUtils.anyNull(str, searchStr)) {
       return this.INDEX_NOT_FOUND;
     }
@@ -2283,11 +2205,7 @@ export class StringUtils {
    * @param ordinal 要查找的第 n 个最后 searchStr
    * @return 搜索字符串 的第 n 个最后索引，如果不匹配，则为 -1 ({@link INDEX_NOT_FOUND}) 或 null、undefined 字符串输入
    */
-  public static lastOrdinalIndexOf(
-    str: string,
-    searchStr: string,
-    ordinal: number,
-  ): number {
+  public static lastOrdinalIndexOf(str: string, searchStr: string, ordinal: number): number {
     return this.ordinalStrIndexOf(str, searchStr, ordinal, true);
   }
 
@@ -2345,11 +2263,7 @@ export class StringUtils {
    * @param padStr 要填充的字符串，null、undefined 或空视为单个空白
    * @return 如果不需要填充，则为左填充字符串或原始字符串，如果为空字符串输入，则返回 null
    */
-  public static leftPad(
-    str: string,
-    size: number,
-    padStr = this.SPACE,
-  ): string {
+  public static leftPad(str: string, size: number, padStr = this.SPACE): string {
     if (ObjectUtils.isNull(str)) {
       return null;
     }
@@ -2470,11 +2384,7 @@ export class StringUtils {
    * @param ordinal 要查找的第 n 个 searchStr
    * @return 搜索字符串的第 n 个索引，如果没有匹配或 null、undefined 字符串输入则返回 -1 ({@link INDEX_NOT_FOUND})
    */
-  public static ordinalIndexOf(
-    str: string,
-    searchStr: string,
-    ordinal: number,
-  ): number {
+  public static ordinalIndexOf(str: string, searchStr: string, ordinal: number): number {
     return this.ordinalStrIndexOf(str, searchStr, ordinal, false);
   }
 
@@ -2505,12 +2415,7 @@ export class StringUtils {
    * @param end 之前停止覆盖的位置
    * @return 覆盖字符串，如果为 null 或 undefined 字符串输入则返回 null
    */
-  public static overlay(
-    str: string,
-    overlay: string,
-    start: number,
-    end: number,
-  ): string {
+  public static overlay(str: string, overlay: string, start: number, end: number): string {
     if (ObjectUtils.isNull(str)) {
       return null;
     }
@@ -2568,11 +2473,7 @@ export class StringUtils {
    * @param prefixes 其他有效的前缀。
    * @return {} 如果前缀被添加，则为新字符串，否则为相同的字符串。
    */
-  public static prependIfMissing(
-    str: string,
-    prefix: string,
-    ...prefixes: string[]
-  ): string {
+  public static prependIfMissing(str: string, prefix: string, ...prefixes: string[]): string {
     return this.prependStrIfMissing(str, prefix, false, ...prefixes);
   }
 
@@ -2823,11 +2724,7 @@ export class StringUtils {
    */
   public static repeat(str: string, separator: string, repeat: number): string;
 
-  public static repeat(
-    str: string,
-    separator: string | number,
-    repeat?: number,
-  ): string {
+  public static repeat(str: string, separator: string | number, repeat?: number): string {
     if (ObjectUtils.anyNull(str, separator)) {
       return this.repeat(str, repeat);
     }
@@ -2872,12 +2769,7 @@ export class StringUtils {
    * @param max 要替换的最大值数，如果没有最大值，则为 -1
    * @return 处理任何替换的文本，如果为 null 或 undefined 字符串输入则返回 null
    */
-  public static replace(
-    text: string,
-    searchString: string,
-    replacement: string,
-    max = -1,
-  ): string {
+  public static replace(text: string, searchString: string, replacement: string, max = -1): string {
     return this.replaceStr(text, searchString, replacement, max, false);
   }
 
@@ -2912,11 +2804,7 @@ export class StringUtils {
    * @param replaceChars 一组要替换的字符，可以为 null 或 undefined
    * @return 修改后的字符串，如果为 null 或 undefined 字符串输入则返回 null
    */
-  public static replaceChars(
-    str: string,
-    searchChars: string,
-    replaceChars: string,
-  ): string {
+  public static replaceChars(str: string, searchChars: string, replaceChars: string): string {
     if (this.isEmpty(str) || this.isEmpty(searchChars)) {
       return str;
     }
@@ -3001,11 +2889,7 @@ export class StringUtils {
    * @param replacement 替换它的字符串，可能为 null 或 undefined
    * @return 处理任何替换的文本，如果为 null、undefined 字符串输入则返回 null
    */
-  public static replaceOnce(
-    text: string,
-    searchString: string,
-    replacement: string,
-  ): string {
+  public static replaceOnce(text: string, searchString: string, replacement: string): string {
     return this.replaceStr(text, searchString, replacement, 1, false);
   }
 
@@ -3137,11 +3021,7 @@ export class StringUtils {
    * @param padStr 要填充的字符串，null、undefined 或空视为单个空白
    * @return 如果不需要填充，则右填充字符串或原始字符串，如果为 null 或 undefined 字符串输入，则返回 null
    */
-  public static rightPad(
-    str: string,
-    size: number,
-    padStr = this.SPACE,
-  ): string {
+  public static rightPad(str: string, size: number, padStr = this.SPACE): string {
     if (ObjectUtils.isNull(str)) {
       return null;
     }
@@ -3214,11 +3094,7 @@ export class StringUtils {
    * @param max 包含在数组中的最大元素数。零或负值意味着没有限制
    * @return 已解析字符串数组，如果为 null 或 undefined 字符串输入，则返回 null
    */
-  public static split(
-    str: string,
-    separatorChars = this.EMPTY,
-    max = -1,
-  ): string[] {
+  public static split(str: string, separatorChars = this.EMPTY, max = -1): string[] {
     return this.splitWorker(str, separatorChars, max, false);
   }
 
@@ -3245,11 +3121,7 @@ export class StringUtils {
    * @param max 返回数组中包含的最大元素数。零或负值意味着没有限制。
    * @return 已解析字符串的数组，如果输入了 null 或 undefined 字符串，则返回 null
    */
-  public static splitByWholeSeparator(
-    str: string,
-    separatorChars: string,
-    max = -1,
-  ): string[] {
+  public static splitByWholeSeparator(str: string, separatorChars: string, max = -1): string[] {
     return this.splitByWholeSeparatorWorker(str, separatorChars, max, false);
   }
 
@@ -3338,11 +3210,7 @@ export class StringUtils {
    * @return 如果字符串以前缀、区分大小写，或两者都为 null、undefined 则返回 true
    * @see String#startsWith
    */
-  public static startsWith(
-    str: string,
-    prefix: string,
-    ignoreCase = false,
-  ): boolean {
+  public static startsWith(str: string, prefix: string, ignoreCase = false): boolean {
     if (ObjectUtils.anyNull(str, prefix)) {
       return str === prefix;
     }
@@ -3350,9 +3218,7 @@ export class StringUtils {
     if (preLen > str.length) {
       return false;
     }
-    return ignoreCase
-      ? str.toLowerCase().startsWith(prefix)
-      : str.startsWith(prefix);
+    return ignoreCase ? str.toLowerCase().startsWith(prefix) : str.startsWith(prefix);
   }
 
   /**
@@ -3374,10 +3240,7 @@ export class StringUtils {
    * @return 如果输入字符串是 null 或 undefined 并且没有提供 searchStrings 则返回 true，
    * 或者输入字符串以任何提供的区分大小写的 searchStrings 起始。
    */
-  public static startsWithAny(
-    str: string,
-    ...searchStrings: string[]
-  ): boolean {
+  public static startsWithAny(str: string, ...searchStrings: string[]): boolean {
     if (this.isEmpty(str) || ArrayUtils.isEmpty(searchStrings)) {
       return false;
     }
@@ -3907,11 +3770,7 @@ export class StringUtils {
    * @param close 子字符串之后的字符串，可能为 null 或 undefined
    * @return 子字符串，如果不匹配则返回 null
    */
-  public static substringBetween(
-    str: string,
-    open: string,
-    close?: string,
-  ): string {
+  public static substringBetween(str: string, open: string, close?: string): string {
     if (!ObjectUtils.allNotNull(str, open, close)) {
       return null;
     }
@@ -3950,11 +3809,7 @@ export class StringUtils {
    * @param close 子字符串之后的字符串，可能为 null 或 undefined
    * @return 子字符串，如果不匹配则返回 null
    */
-  public static substringsBetween(
-    str: string,
-    open: string,
-    close: string,
-  ): string[] {
+  public static substringsBetween(str: string, open: string, close: string): string[] {
     if (ObjectUtils.isNull(str) || this.isEmpty(str) || this.isEmpty(close)) {
       return null;
     }
@@ -4114,9 +3969,7 @@ export class StringUtils {
    * @return {} 转换后的字符串, 如果代码点数组输入为 null 或 undefined 则返回 null
    */
   public static fromCodePoint(...codePoints: number[]): string {
-    return ObjectUtils.isNull(codePoints)
-      ? null
-      : String.fromCodePoint(...codePoints);
+    return ObjectUtils.isNull(codePoints) ? null : String.fromCodePoint(...codePoints);
   }
 
   /**
@@ -4131,9 +3984,7 @@ export class StringUtils {
    * @return {} 转换后的字符串, 如果字符编码数组输入为 null 或 undefined 则返回 null
    */
   public static fromCharCodes(...charCodes: number[]): string {
-    return ObjectUtils.isNull(charCodes)
-      ? null
-      : String.fromCharCode(...charCodes);
+    return ObjectUtils.isNull(charCodes) ? null : String.fromCharCode(...charCodes);
   }
 
   /**
@@ -4427,10 +4278,7 @@ export class StringUtils {
       }
     }
     indexArr.forEach((value, index) => {
-      newStr.push(
-        str.charAt(value).toLowerCase() +
-          str.substring(value + 1, indexArr[index + 1]),
-      );
+      newStr.push(str.charAt(value).toLowerCase() + str.substring(value + 1, indexArr[index + 1]));
     });
     return newStr.join('_');
   }
