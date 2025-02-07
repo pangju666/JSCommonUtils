@@ -181,119 +181,45 @@ export class ObjectUtils {
   }
 
   /**
-   * 根据属性表达式获取对象的属性
+   * 判断值是否为 undefined
    *
    * @example
    * ```js
-   * const a = {
-   *     b: "test",
-   *     c: {
-   *         d: "test2"
-   *     },
-   *     e: ["test4"],
-   *     f: [{g: "test3"}]
-   * };
-   *
-   * ObjectUtils.getProp({id: 1}, "", "a") // a
-   * ObjectUtils.getProp(null, "") // null
-   * ObjectUtils.getProp({id: 1}, undefined, {}) // {}
-   * ObjectUtils.getProp({id: 1}, null, {}) // {}
-   * ObjectUtils.getProp({id: 1}, "", {}) // {}
-   * ObjectUtils.getProp(a, "b", {}) // "test"
-   * ObjectUtils.getProp(a, "c.d", {}) // "test2"
-   * ObjectUtils.getProp(a, "e[0]", {}) // "test4"
-   * ObjectUtils.getProp(a, "f[0].g", {}) // "test3"
+   * ObjectUtils.isExist(undefined) // true
+   * ObjectUtils.isExist(null) // false
+   * ObjectUtils.isExist("demo") // false
+   * ObjectUtils.isExist(1) // false
+   * ObjectUtils.isExist(true) // false
+   * ObjectUtils.isExist(false) // false
+   * ObjectUtils.isExist({ name: "admin" }) // false
    * ```
    *
-   * @param value 测试对象，如果对象为 null、undefined 则返回 defaultValue
-   * @param key 属性表达式，如果参数为 null、undefined、"" 则返回 defaultValue
-   * @param defaultValue 默认值，默认为 null
-   * @throws {@link TypeError} 如果 key 不为 {@link String} 类型
-   * @returns {} value 中 key 指向的属性
+   * @param value 待判断的值
+   * @returns {} 值为 undefined 则返回 true，否则为 false
    */
-  public static getProp(value: unknown, key: string, defaultValue = null): unknown {
-    if (this.isNotNull(key) && typeof key !== 'string') {
-      throw new TypeError('key 必须为字符串类型');
-    }
-
-    if (this.anyNull(value, key) || key.length === 0) {
-      return defaultValue;
-    }
-
-    const props = key.replace(/\[/g, '.').replace(/]/g, '').split('.');
-    if (props.length <= 1) {
-      return this.defaultIfNull(value[props[0]], defaultValue);
-    }
-    const propValue = props.reduce((value, prop) => (value || {})[prop], value);
-    return this.defaultIfNull(propValue, defaultValue);
+  public static isExist(value: unknown): boolean {
+    return value === undefined;
   }
 
   /**
-   * 判断属性表达式指向的属性是否存在
+   * 判断值是否不为 undefined
    *
    * @example
    * ```js
-   * const a = {
-   *     b: "test",
-   *     c: {
-   *         d: "test2"
-   *     },
-   *     e: ["test4"],
-   *     f: [{g: "test3"}]
-   * };
-   *
-   * ObjectUtils.isExistProp({id: 1}, "") // false
-   * ObjectUtils.isExistProp(null, "") // false
-   * ObjectUtils.isExistProp({id: 1}, undefined) // false
-   * ObjectUtils.isExistProp({id: 1}, null) // false
-   * ObjectUtils.isExistProp({id: 1}, "") // false
-   * ObjectUtils.isExistProp(a, "b") // true
-   * ObjectUtils.isExistProp(a, "c.d") // true
-   * ObjectUtils.isExistProp(a, "e[0]") // true
-   * ObjectUtils.isExistProp(a, "f[0].g") // true
+   * ObjectUtils.isNotExist(undefined) // false
+   * ObjectUtils.isNotExist(null) // true
+   * ObjectUtils.isNotExist("demo") // true
+   * ObjectUtils.isNotExist(1) // true
+   * ObjectUtils.isNotExist(true) // true
+   * ObjectUtils.isNotExist(false) // true
+   * ObjectUtils.isNotExist({ name: "admin" }) // true
    * ```
    *
-   * @param value 测试对象, 如果 value为 null、undefined 则返回 false
-   * @param key 属性表达式，如果参数为 null、undefined、"" 则返回 false
-   * @throws {@link TypeError} 如果 key 不为 {@link string} 类型
-   * @returns 如果 value 中存在 key 指向的属性则为 true，否则为 false
+   * @param value 待判断的值
+   * @returns {} 值为 undefined 则返回 false，否则为 true
    */
-  public static isExistProp(value: unknown, key: string): boolean {
-    return this.getProp(value, key) !== null;
-  }
-
-  /**
-   * 根据属性表达式获取对象的属性
-   *
-   * @example
-   * ```js
-   * const a = {
-   *     b: "test",
-   *     c: {
-   *         d: "test2"
-   *     },
-   *     e: ["test4"],
-   *     f: [{g: "test3"}]
-   * };
-   *
-   * ObjectUtils.isNotExistProp({id: 1}, "") // true
-   * ObjectUtils.isNotExistProp(null, "") // true
-   * ObjectUtils.isNotExistProp({id: 1}, undefined) // true
-   * ObjectUtils.isNotExistProp({id: 1}, null) // true
-   * ObjectUtils.isNotExistProp({id: 1}, "") // true
-   * ObjectUtils.isNotExistProp(a, "b") // false
-   * ObjectUtils.isNotExistProp(a, "c.d") // false
-   * ObjectUtils.isNotExistProp(a, "e[0]") // false
-   * ObjectUtils.isNotExistProp(a, "f[0].g") // false
-   * ```
-   *
-   * @param value 测试对象
-   * @param key 属性表达式，如果参数为 null、undefined、"" 则返回默认值
-   * @throws {@link TypeError} 如果 key 不为 {@link string} 类型
-   * @returns 对象属性值，如果对象为 null、undefined 则返回 defaultValue
-   */
-  public static isNotExistProp(value: unknown, key: string): boolean {
-    return this.getProp(value, key) === null;
+  public static isNotExist(value: unknown): boolean {
+    return value !== undefined;
   }
 
   /**
@@ -322,20 +248,20 @@ export class ObjectUtils {
    *
    * @example
    * ```js
-   * ObjectUtils.isNotNull(undefined) // true
-   * ObjectUtils.isNotNull(null) // true
-   * ObjectUtils.isNotNull("demo") // false
-   * ObjectUtils.isNotNull(1) // false
-   * ObjectUtils.isNotNull(true) // false
-   * ObjectUtils.isNotNull(false) // false
-   * ObjectUtils.isNotNull({ name: "admin" }) // false
+   * ObjectUtils.isNull(undefined) // true
+   * ObjectUtils.isNull(null) // true
+   * ObjectUtils.isNull("demo") // false
+   * ObjectUtils.isNull(1) // false
+   * ObjectUtils.isNull(true) // false
+   * ObjectUtils.isNull(false) // false
+   * ObjectUtils.isNull({ name: "admin" }) // false
    * ```
    *
    * @param value 待判断的值
    * @returns {} 值为 null 或 undefined 则返回 true，否则为 false
    */
   public static isNull(value: unknown): boolean {
-    return !this.isNotNull(value);
+    return value === undefined || value === null;
   }
 
   /**
@@ -386,6 +312,9 @@ export class ObjectUtils {
   public static anyNotNull(...values: unknown[]): boolean {
     if (this.isNull(values)) {
       return false;
+    }
+    if (values.length === 0) {
+      return true;
     }
     for (const value of values) {
       if (this.isNotNull(value)) {
