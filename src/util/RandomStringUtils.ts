@@ -94,12 +94,7 @@ export class RandomStringUtils {
   public static randomNumber(minLength: number, maxLength: number): string;
 
   static randomNumber(minLength: number, maxLength?: number): string {
-    return this.randomString(
-      this.MIN_NUMBER_CHAR,
-      this.MAX_NUMBER_CHAR,
-      minLength,
-      maxLength,
-    );
+    return this.randomString(this.MIN_NUMBER_CHAR, this.MAX_NUMBER_CHAR, minLength, maxLength);
   }
 
   /**
@@ -146,10 +141,7 @@ export class RandomStringUtils {
    * @param maxLength 要创建的随机字符串的最大长度
    * @return {} 随机字符串
    */
-  public static randomLetterNumber(
-    minLength: number,
-    maxLength: number,
-  ): string;
+  public static randomLetterNumber(minLength: number, maxLength: number): string;
 
   static randomLetterNumber(minLength: number, maxLength?: number): string {
     return this.randomLetterString(true, minLength, maxLength);
@@ -174,10 +166,7 @@ export class RandomStringUtils {
    * @param maxLength 要创建的随机字符串的最大长度
    * @return {} 随机字符串
    */
-  public static randomLowercaseLetter(
-    minLength: number,
-    maxLength: number,
-  ): string;
+  public static randomLowercaseLetter(minLength: number, maxLength: number): string;
 
   static randomLowercaseLetter(minLength: number, maxLength?: number): string {
     return this.randomString(
@@ -207,10 +196,7 @@ export class RandomStringUtils {
    * @param maxLength 要创建的随机字符串的最大长度
    * @return {} 随机字符串
    */
-  public static randomUppercaseLetter(
-    minLength: number,
-    maxLength: number,
-  ): string;
+  public static randomUppercaseLetter(minLength: number, maxLength: number): string;
 
   static randomUppercaseLetter(minLength: number, maxLength?: number): string {
     return this.randomString(
@@ -273,12 +259,7 @@ export class RandomStringUtils {
   public static randomAscii(minLength: number, maxLength: number): string;
 
   static randomAscii(minLength: number, maxLength?: number): string {
-    return this.randomString(
-      this.MIN_ASCII_CHAR,
-      this.MAX_ASCII_CHAR,
-      minLength,
-      maxLength,
-    );
+    return this.randomString(this.MIN_ASCII_CHAR, this.MAX_ASCII_CHAR, minLength, maxLength);
   }
 
   /**
@@ -333,12 +314,7 @@ export class RandomStringUtils {
   public static randomUnicode(minLength: number, maxLength: number): string;
 
   static randomUnicode(minLength: number, maxLength?: number): string {
-    return this.randomString(
-      this.MIN_UNICODE_CHAR,
-      this.MAX_UNICODE_CHAR,
-      minLength,
-      maxLength,
-    );
+    return this.randomString(this.MIN_UNICODE_CHAR, this.MAX_UNICODE_CHAR, minLength, maxLength);
   }
 
   /**
@@ -352,11 +328,7 @@ export class RandomStringUtils {
    * 或（length 为 null、 undefined 或 小于 1）
    * @return {} 随机字符串
    */
-  public static randomString(
-    startChar: string,
-    endChar: string,
-    length: number,
-  );
+  public static randomString(startChar: string, endChar: string, length: number);
 
   /**
    * 返回指定字符范围内的随机字符串。
@@ -411,11 +383,7 @@ export class RandomStringUtils {
       return String.fromCharCode(...charCodes);
     }
 
-    const charCodes = RandomUtils.nextIntArray(
-      length,
-      startCharCode,
-      endCharCode,
-    );
+    const charCodes = RandomUtils.nextIntArray(length, startCharCode, endCharCode);
     return String.fromCharCode(...charCodes);
   }
 

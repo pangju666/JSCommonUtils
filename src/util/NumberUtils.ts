@@ -149,9 +149,7 @@ export class NumberUtils {
       throw new IllegalArgumentError('小数点后的位数，必须在 0 - 20 的范围内');
     }
     const fractionDigits = Math.floor(digits);
-    return Number(
-      Math.round(Number(value + 'e' + fractionDigits)) + 'e-' + fractionDigits,
-    );
+    return Number(Math.round(Number(value + 'e' + fractionDigits)) + 'e-' + fractionDigits);
   }
 
   /**
@@ -167,9 +165,7 @@ export class NumberUtils {
       throw new IllegalArgumentError('小数点后的位数，必须在 0 - 20 的范围内');
     }
     const fractionDigits = Math.floor(digits);
-    return Number(
-      Math.floor(Number(value + 'e' + fractionDigits)) + 'e-' + fractionDigits,
-    );
+    return Number(Math.floor(Number(value + 'e' + fractionDigits)) + 'e-' + fractionDigits);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function

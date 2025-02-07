@@ -131,8 +131,7 @@ export class RegexUtils {
    * URL
    * @category 正则表达式
    */
-  public static readonly URL =
-    /[a-zA-Z]+:\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]+/;
+  public static readonly URL = /[a-zA-Z]+:\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]+/;
   /**
    * HTTP
    * @category 正则表达式
@@ -193,8 +192,7 @@ export class RegexUtils {
    * 强密码, 数字、字母和特殊字符组成
    * @category 正则表达式
    */
-  public static readonly STRONG_PASSWORD =
-    /[a-zA-z\d`~!@#$%^&*()_\-+={}[\];:'"|/?,<>\\]+/;
+  public static readonly STRONG_PASSWORD = /[a-zA-z\d`~!@#$%^&*()_\-+={}[\];:'"|/?,<>\\]+/;
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {}
@@ -311,11 +309,7 @@ export class RegexUtils {
      * @return 处理任何替换的文本，如果为 null 或 undefined 字符串输入，则返回 null
 
      */
-  public static replaceAll(
-    text: string,
-    regex: string | RegExp,
-    replacement: string,
-  ): string {
+  public static replaceAll(text: string, regex: string | RegExp, replacement: string): string {
     if (ObjectUtils.anyNull(text, regex, replacement)) {
       return text;
     }
@@ -351,11 +345,7 @@ export class RegexUtils {
      * @return 处理第一个替换的文本，如果为 null 或 undefined 字符串输入，则返回 null
 
      */
-  public static replaceFirst(
-    text: string,
-    regex: string | RegExp,
-    replacement: string,
-  ): string {
+  public static replaceFirst(text: string, regex: string | RegExp, replacement: string): string {
     if (ObjectUtils.anyNull(text, regex, replacement)) {
       return text;
     }
@@ -382,11 +372,7 @@ export class RegexUtils {
      * @return {} 结果字符串，如果为 null 或 undefined 字符串输入，则返回 null
 
      */
-  public static replacePattern(
-    text: string,
-    regex: string | RegExp,
-    replacement: string,
-  ): string {
+  public static replacePattern(text: string, regex: string | RegExp, replacement: string): string {
     if (ObjectUtils.anyNull(text, regex, replacement)) {
       return text;
     }

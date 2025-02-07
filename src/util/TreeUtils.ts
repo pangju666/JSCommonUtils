@@ -34,9 +34,7 @@ export class TreeUtils {
     }
 
     const treeNodeMap = new Map();
-    sourceItems.forEach((sourceNode) =>
-      treeNodeMap.set(sourceNode[props.id], sourceNode),
-    );
+    sourceItems.forEach((sourceNode) => treeNodeMap.set(sourceNode[props.id], sourceNode));
 
     const treeNodes = [];
     for (const sourceItem of sourceItems) {

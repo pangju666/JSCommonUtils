@@ -58,11 +58,7 @@ export type Converter<T> = (t) => T;
  * @param obj 待测试的数组
  * @return {} 是否通过测试，通过则返回 true，否则为 false
  */
-export type ArrayPredicate<T> = (
-  element: T,
-  index?: number,
-  obj?: T[],
-) => boolean;
+export type ArrayPredicate<T> = (element: T, index?: number, obj?: T[]) => boolean;
 
 /**
  * 将值以字符串形式输出

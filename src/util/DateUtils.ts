@@ -1,9 +1,5 @@
 import { ObjectUtils } from './ObjectUtils';
-import {
-  IllegalArgumentError,
-  NullError,
-  ParseError,
-} from '../error/runtimeError';
+import { IllegalArgumentError, NullError, ParseError } from '../error/runtimeError';
 import * as dateFns from 'date-fns';
 
 /**
@@ -60,10 +56,7 @@ export class DateUtils {
    * @returns {} 如果它们代表相同的毫秒时间戳，则为 true
    * @throws {@link IllegalArgumentError} 如果任一日期为 null 或 undefined
    */
-  public static isSameInstant(
-    date1: Date | number,
-    date2: Date | number,
-  ): boolean {
+  public static isSameInstant(date1: Date | number, date2: Date | number): boolean {
     if (ObjectUtils.anyNull(date1, date2)) {
       throw new IllegalArgumentError('日期不能为空');
     }
@@ -360,10 +353,7 @@ export class DateUtils {
    * @returns {} 新日期
    * @throws {@link NullError} 如果日期为 null 或 undefined
    */
-  public static setMilliseconds(
-    date: Date | number,
-    milliseconds: number,
-  ): Date {
+  public static setMilliseconds(date: Date | number, milliseconds: number): Date {
     if (ObjectUtils.isNull(date)) {
       throw new NullError('日期不能为空');
     }

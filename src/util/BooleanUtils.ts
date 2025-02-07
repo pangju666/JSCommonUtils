@@ -159,11 +159,7 @@ export class BooleanUtils {
    * @returns {} true 或 false
    * @throws {@link IllegalArgumentError} 如果 value 不匹配 trueValue 或 falseValue
    */
-  public static toBoolean(
-    value: number,
-    trueValue: number,
-    falseValue: number,
-  ): boolean;
+  public static toBoolean(value: number, trueValue: number, falseValue: number): boolean;
   /**
    * {@label STRING_DEFAULT}
    * <p>将字符串转换为布尔值（针对性能进行了优化）。</p>
@@ -209,11 +205,7 @@ export class BooleanUtils {
    * @returns {} 字符串的布尔值
    * @throws {@link IllegalArgumentError} 如果 str 不匹配 trueValue 或 falseValue
    */
-  public static toBoolean(
-    str: string,
-    trueString: string,
-    falseString: string,
-  ): boolean;
+  public static toBoolean(str: string, trueString: string, falseString: string): boolean;
   static toBoolean(
     value: number | string,
     trueValue?: number | string,
@@ -263,12 +255,7 @@ export class BooleanUtils {
    * @param nullValue 如果 value 为 null 或 undefined 返回的值，默认返回 {@link NaN}
    * @returns {} 三个输入数字之一
    */
-  public static toInteger(
-    value: boolean,
-    trueValue = 1,
-    falseValue = 0,
-    nullValue = NaN,
-  ): number {
+  public static toInteger(value: boolean, trueValue = 1, falseValue = 0, nullValue = NaN): number {
     if (ObjectUtils.isNull(value)) {
       return nullValue;
     }
@@ -363,22 +350,10 @@ export class BooleanUtils {
     switch (str.length) {
       case 1: {
         const ch0 = str.charAt(0);
-        if (
-          ch0 === 'y' ||
-          ch0 === 'Y' ||
-          ch0 === 't' ||
-          ch0 === 'T' ||
-          ch0 === '1'
-        ) {
+        if (ch0 === 'y' || ch0 === 'Y' || ch0 === 't' || ch0 === 'T' || ch0 === '1') {
           return true;
         }
-        if (
-          ch0 === 'n' ||
-          ch0 === 'N' ||
-          ch0 === 'f' ||
-          ch0 === 'F' ||
-          ch0 === '0'
-        ) {
+        if (ch0 === 'n' || ch0 === 'N' || ch0 === 'f' || ch0 === 'F' || ch0 === '0') {
           return false;
         }
         break;

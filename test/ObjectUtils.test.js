@@ -192,23 +192,7 @@ describe('ObjectUtilsTest', () => {
     );
     expect(ObjectUtils.max((left, right) => left - right, 1, 1, 1)).toBe(1);
     expect(
-      ObjectUtils.max(
-        (left, right) => left - right,
-        1,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        2,
-        3,
-        4,
-        7,
-        3,
-        9,
-        10,
-        2,
-        15,
-        1,
-        null,
-      ),
+      ObjectUtils.max((left, right) => left - right, 1, 2, 3, 4, 7, 3, 9, 10, 2, 15, 1, null),
     ).toBe(15);
     expect(ObjectUtils.max((left, right) => left - right, null, null, null)).toBe(null);
   });
@@ -249,7 +233,6 @@ describe('ObjectUtilsTest', () => {
     expect(ObjectUtils.isBasicType(undefined)).toBeTruthy();
     expect(ObjectUtils.isBasicType({})).toBeFalsy();
     expect(ObjectUtils.isBasicType([])).toBeFalsy();
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     expect(ObjectUtils.isBasicType(() => {})).toBeFalsy();
   });
 
@@ -263,10 +246,7 @@ describe('ObjectUtilsTest', () => {
     expect(ObjectUtils.isAnyType(undefined, Number, BigInt, Symbol)).toBeFalsy();
     expect(ObjectUtils.isAnyType([], Array, Number, BigInt, Symbol)).toBeTruthy();
     expect(ObjectUtils.isAnyType('', Array, Number, BigInt, Symbol)).toBeFalsy();
-    expect(
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      ObjectUtils.isAnyType(() => {}, Function, Array, BigInt, Symbol),
-    ).toBeTruthy();
+    expect(ObjectUtils.isAnyType(() => {}, Function, Array, BigInt, Symbol)).toBeTruthy();
     expect(ObjectUtils.isAnyType(new Date(), Function, Array, Date)).toBeTruthy();
   });
 

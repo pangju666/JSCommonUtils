@@ -81,10 +81,7 @@ export class DateFormatUtils {
     formatStr = DateFormatUtils.DATE_FORMAT,
     options?: FormatOptions,
   ): string {
-    if (
-      ObjectUtils.anyNull(date, formatStr) ||
-      StringUtils.isEmpty(formatStr)
-    ) {
+    if (ObjectUtils.anyNull(date, formatStr) || StringUtils.isEmpty(formatStr)) {
       return '';
     }
     return format(date, formatStr, options);

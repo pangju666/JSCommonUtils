@@ -95,11 +95,7 @@ export class RandomUtils {
     startInclusive: number,
     endExclusive: number,
   ): number[];
-  static nextIntArray(
-    length: number,
-    startInclusive?: number,
-    endExclusive?: number,
-  ): number[] {
+  static nextIntArray(length: number, startInclusive?: number, endExclusive?: number): number[] {
     let result;
     if (ObjectUtils.isNull(endExclusive)) {
       if (ObjectUtils.isNull(startInclusive)) {
@@ -230,11 +226,7 @@ export class RandomUtils {
     startInclusive: number,
     endExclusive: number,
   ): number[];
-  static nextFloatArray(
-    length: number,
-    startInclusive?: number,
-    endExclusive?: number,
-  ): number[] {
+  static nextFloatArray(length: number, startInclusive?: number, endExclusive?: number): number[] {
     if (ObjectUtils.isNull(endExclusive)) {
       if (ObjectUtils.isNull(startInclusive)) {
         return this.randomArray(0, Number.MAX_VALUE, length, true);
@@ -259,12 +251,7 @@ export class RandomUtils {
     return Math.random() * (max - min + 1) + min;
   }
 
-  private static randomArray(
-    min: number,
-    max: number,
-    length: number,
-    repeat: boolean,
-  ): number[] {
+  private static randomArray(min: number, max: number, length: number, repeat: boolean): number[] {
     if (ObjectUtils.isNull(length)) {
       throw new IllegalArgumentError('长度不可为 null 或 undefined。');
     }
